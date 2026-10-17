@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DraftFit Mobile JS Probe</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #09090b;
+      color: #fafafa;
+      padding: 24px;
+    }
+    .card {
+      max-width: 560px;
+      margin: 0 auto;
+      border: 1px solid #3f3f46;
+      background: #18181b;
+      padding: 20px;
+    }
+    button, input, select {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 14px;
+      font-size: 16px;
+    }
+    button {
+      background: #ea580c;
+      color: white;
+      border: 0;
+      font-weight: 800;
+    }
+    .ok { color: #4ade80; }
+    .bad { color: #fb7185; }
+    .muted { color: #a1a1aa; }
+    code { word-break: break-all; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>DraftFit Mobile JS Probe</h1>
+
+    <p>
+      Plain JavaScript status:
+      <strong id="js-status" class="bad">NOT RUNNING</strong>
+    </p>
+
+    <p>
+      Counter:
+      <strong id="counter">0</strong>
+    </p>
+
+    <button id="tap-button" type="button">
+      TAP ME — PLAIN JS +1
+    </button>
+
+    <input id="text-input" placeholder="Type here" />
+
+    <select id="select-test">
+      <option>Option A</option>
+      <option>Option B</option>
+    </select>
+
+    <p class="muted">
+      User agent:
+      <br />
+      <code id="ua">waiting...</code>
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      var status = document.getElementById('js-status');
+      var counter = document.getElementById('counter');
+      var button = document.getElementById('tap-button');
+      var ua = document.getElementById('ua');
+      var value = 0;
+
+      status.textContent = 'RUNNING';
+      status.className = 'ok';
+      ua.textContent = navigator.userAgent;
+
+      button.addEventListener('click', function () {
+        value += 1;
+        counter.textContent = String(value);
+      });
+
+      button.addEventListener('touchend', function () {
+        status.textContent = 'RUNNING — TOUCH EVENT RECEIVED';
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
