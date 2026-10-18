@@ -123,19 +123,6 @@ function GlobalSearchInner() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="draftfit-search-launcher hidden sm:flex print:hidden"
-        aria-label="Search DraftFit"
-        aria-haspopup="dialog"
-        title="Search DraftFit (Ctrl/⌘ K)"
-      >
-        <span aria-hidden="true">⌕</span>
-        <span className="hidden sm:inline">Search</span>
-        <kbd className="hidden lg:inline">Ctrl K</kbd>
-      </button>
-
       {open ? (
         <div
           className="draftfit-search-overlay print:hidden"
