@@ -6,6 +6,7 @@ import type {
 import './globals.css';
 
 import GlobalSearch from '@/components/GlobalSearch';
+import { Analytics } from '@vercel/analytics/next';
 
 import {
   SITE_DESCRIPTION,
@@ -90,6 +91,7 @@ export default function RootLayout({
         </a>
         <GlobalSearch />
         {children}
+        <Analytics />
       </body>
     </html>
   );
