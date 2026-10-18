@@ -30,6 +30,93 @@ export type StandardEntry = {
 
 export const GUIDES: GuideEntry[] = [
   {
+    slug: 'h7-g6-vs-h7-h6-vs-h7-k6',
+    title: 'H7/g6 vs H7/h6 vs H7/k6: ISO 286 Fits Explained',
+    description:
+      'Compare H7/g6, H7/h6 and H7/k6 fits, see how their tolerance zones change clearance and interference, and choose a better starting point for shaft-hole design.',
+    eyebrow: 'Fits & tolerances',
+    keywords: [
+      'H7 g6 vs H7 h6 vs H7 k6',
+      'H7/g6 fit',
+      'H7/h6 fit',
+      'H7/k6 fit',
+      'ISO 286 fits',
+      'clearance fit',
+      'transition fit',
+    ],
+    calculatorHref: '/calculators/iso-286-fit-calculator',
+    calculatorLabel: 'Compare the fits in the ISO 286 calculator',
+    standardSlugs: ['iso-286'],
+    sections: [
+      {
+        heading: 'Quick answer: what changes between g6, h6 and k6?',
+        paragraphs: [
+          'With an H7 hole, changing the shaft letter moves the shaft tolerance zone relative to the nominal size. H7/g6 gives a definite clearance in DraftFit’s supported ISO 286 data set, H7/h6 reaches the nominal line and can have zero theoretical minimum clearance, while H7/k6 crosses into transition-fit behavior.',
+          'The grade numbers still matter: H7 sets the hole tolerance width and 6 sets the shaft tolerance width. The letter controls where that tolerance zone sits relative to the basic size.',
+        ],
+        bullets: [
+          'H7/g6: clearance-fit starting point for free-running or sliding behavior.',
+          'H7/h6: close clearance/location starting point with zero theoretical minimum clearance.',
+          'H7/k6: transition-fit starting point that can produce either small clearance or small interference.',
+        ],
+      },
+      {
+        heading: 'How to read H7/g6, H7/h6 and H7/k6',
+        paragraphs: [
+          'The first code belongs to the hole and the second to the shaft. Capital H therefore describes the hole tolerance zone, while lowercase g, h or k describes the shaft tolerance zone.',
+          'In the hole-basis system used here, an H hole starts at the nominal size. A g shaft lies below nominal, an h shaft ends at nominal, and the supported k shaft zone begins slightly above nominal. That positional change is what moves the fit from definite clearance toward transition behavior.',
+        ],
+      },
+      {
+        heading: '35 mm worked comparison',
+        paragraphs: [
+          'For a nominal diameter of 35 mm, DraftFit uses an H7 hole from 35.000 mm to 35.025 mm in its supported data set. The corresponding g6 shaft is 34.975–34.991 mm, h6 is 34.984–35.000 mm, and k6 is 35.002–35.018 mm.',
+          'Those limits produce very different worst-case assembly conditions even though the nominal diameter and tolerance grades remain similar.',
+        ],
+        bullets: [
+          '35 H7/g6: 0.009–0.050 mm clearance.',
+          '35 H7/h6: 0.000–0.041 mm clearance.',
+          '35 H7/k6: from 0.018 mm interference to 0.023 mm clearance, so the fit is transitional.',
+        ],
+      },
+      {
+        heading: 'When H7/g6 is the better starting point',
+        paragraphs: [
+          'H7/g6 is useful when the design needs guaranteed dimensional clearance within the selected limits. It is a sensible starting point for applications where relative movement, easy assembly or controlled locating clearance matters more than a tight positional relationship.',
+          'Do not select it from the fit label alone. Speed, lubrication, load, temperature, contamination, manufacturing capability and required running clearance can all change the correct choice.',
+        ],
+      },
+      {
+        heading: 'When H7/h6 is the better starting point',
+        paragraphs: [
+          'H7/h6 moves the shaft zone upward until its maximum size reaches the basic size. That gives a much tighter clearance relationship than H7/g6 while still avoiding intentional dimensional interference in the supported calculation.',
+          'It can be useful when location matters and a close-fitting assembly is wanted, but the zero theoretical minimum clearance means real manufacturing variation, surface condition and assembly practice deserve attention.',
+        ],
+      },
+      {
+        heading: 'When H7/k6 is the better starting point',
+        paragraphs: [
+          'H7/k6 is a transition fit in DraftFit’s supported range. Depending on the actual hole and shaft sizes produced inside their tolerance zones, the assembly can have either a small clearance or a small interference.',
+          'That makes it a stronger locating starting point than the two clearance fits, but it also means assembly behavior is less predictable from the nominal designation alone. Check the actual minimum and maximum fit values for the nominal diameter you are designing.',
+        ],
+      },
+      {
+        heading: 'Do not reuse one diameter’s numbers at another diameter',
+        paragraphs: [
+          'ISO tolerance widths and deviations change by nominal-size step. A clearance range calculated at 35 mm is therefore an example, not a reusable value for every H7/g6, H7/h6 or H7/k6 fit.',
+          'Use the DraftFit calculator at the real nominal diameter and review all four limit dimensions before making a functional selection.',
+        ],
+      },
+      {
+        heading: 'FAQ: which fit should I choose?',
+        paragraphs: [
+          'Choose H7/g6 when guaranteed clearance is the main dimensional objective, H7/h6 when you want a closer clearance-based location, and H7/k6 when a small-clearance/small-interference transition is acceptable. These are starting points, not universal application rules.',
+          'For loaded or temperature-sensitive assemblies, fit selection can also require checks for material expansion, contact stress, assembly force, lubrication and operating conditions. A tolerance designation alone does not validate the mechanical function of the joint.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'h7-g6-fit-explained',
     title: 'H7/g6 Fit Explained: Limits, Clearance and Typical Use',
     description:
@@ -310,7 +397,7 @@ export const STANDARDS: StandardEntry[] = [
       'ISO 286-1:2010 remains current and was confirmed in 2026. Always verify the edition required by your project.',
     calculatorHref: '/calculators/iso-286-fit-calculator',
     calculatorLabel: 'ISO 286 Fit Calculator',
-    guideSlugs: ['h7-g6-fit-explained', 'clearance-transition-interference-fits'],
+    guideSlugs: ['h7-g6-vs-h7-h6-vs-h7-k6', 'h7-g6-fit-explained', 'clearance-transition-interference-fits'],
     sections: [
       {
         heading: 'What the standard system covers',

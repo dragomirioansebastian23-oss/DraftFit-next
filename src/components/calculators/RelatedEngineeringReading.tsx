@@ -15,7 +15,7 @@ type ReadingItem = {
 
 const READING: Record<CalculatorId, ReadingItem[]> = {
   iso286: [
-    { href: '/guides/h7-g6-fit-explained', en: 'H7/g6 fit explained', ro: 'Ajustajul H7/g6 explicat' },
+    { href: '/guides/h7-g6-vs-h7-h6-vs-h7-k6', en: 'H7/g6 vs H7/h6 vs H7/k6', ro: 'H7/g6 vs H7/h6 vs H7/k6' },
     { href: '/guides/clearance-transition-interference-fits', en: 'Clearance vs transition vs interference', ro: 'Joc vs tranziție vs interferență' },
     { href: '/standards/iso-286', en: 'ISO 286 reference', ro: 'Referință ISO 286' },
   ],

@@ -8,6 +8,81 @@ type RomanianGuideTranslation = Pick<
 };
 
 export const GUIDES_RO: Record<string, RomanianGuideTranslation> = {
+  'h7-g6-vs-h7-h6-vs-h7-k6': {
+    title: 'H7/g6 vs H7/h6 vs H7/k6: ajustajele ISO 286 explicate',
+    description:
+      'Compară ajustajele H7/g6, H7/h6 și H7/k6, vezi cum poziția câmpurilor de toleranță schimbă jocul sau interferența și alege un punct de pornire mai bun pentru proiectarea alezaj-arbore.',
+    eyebrow: 'Ajustaje și toleranțe',
+    calculatorLabel: 'Compară ajustajele în calculatorul ISO 286',
+    sections: [
+      {
+        heading: 'Răspuns rapid: ce se schimbă între g6, h6 și k6?',
+        paragraphs: [
+          'Cu un alezaj H7, schimbarea literei arborelui mută câmpul de toleranță al arborelui față de dimensiunea nominală. H7/g6 oferă joc sigur în setul de date ISO 286 implementat de DraftFit, H7/h6 ajunge la linia nominală și poate avea joc minim teoretic zero, iar H7/k6 intră în comportamentul unui ajustaj de tranziție.',
+          'Și treptele numerice contează: H7 stabilește lățimea toleranței alezajului, iar 6 lățimea toleranței arborelui. Litera stabilește poziția câmpului de toleranță față de dimensiunea de bază.',
+        ],
+        bullets: [
+          'H7/g6: punct de pornire cu joc pentru funcționare liberă sau glisare.',
+          'H7/h6: punct de pornire pentru poziționare strânsă cu joc minim teoretic zero.',
+          'H7/k6: punct de pornire de tranziție, cu posibil joc mic sau interferență mică.',
+        ],
+      },
+      {
+        heading: 'Cum se citesc H7/g6, H7/h6 și H7/k6',
+        paragraphs: [
+          'Primul cod aparține alezajului, iar al doilea arborelui. Litera mare H descrie deci câmpul de toleranță al alezajului, în timp ce literele mici g, h sau k descriu câmpul arborelui.',
+          'În sistemul bazat pe alezaj folosit aici, alezajul H începe la dimensiunea nominală. Arborele g este sub nominal, arborele h se termină la nominal, iar câmpul k implementat începe ușor peste nominal. Această deplasare mută ajustajul de la joc sigur către comportament de tranziție.',
+        ],
+      },
+      {
+        heading: 'Comparație calculată la 35 mm',
+        paragraphs: [
+          'Pentru diametrul nominal de 35 mm, DraftFit folosește în setul său implementat un alezaj H7 de la 35,000 mm la 35,025 mm. Arborele g6 corespunzător este 34,975–34,991 mm, h6 este 34,984–35,000 mm, iar k6 este 35,002–35,018 mm.',
+          'Aceste limite produc condiții de montaj foarte diferite chiar dacă diametrul nominal și treptele de toleranță rămân similare.',
+        ],
+        bullets: [
+          '35 H7/g6: joc de 0,009–0,050 mm.',
+          '35 H7/h6: joc de 0,000–0,041 mm.',
+          '35 H7/k6: de la 0,018 mm interferență până la 0,023 mm joc, deci ajustaj de tranziție.',
+        ],
+      },
+      {
+        heading: 'Când H7/g6 este un punct de pornire mai bun',
+        paragraphs: [
+          'H7/g6 este util atunci când proiectarea are nevoie de joc dimensional garantat în limitele selectate. Este un punct de pornire rezonabil când mișcarea relativă, montajul ușor sau un joc controlat pentru poziționare contează mai mult decât o legătură foarte strânsă.',
+          'Nu îl selecta doar după denumirea ajustajului. Viteza, lubrifierea, sarcina, temperatura, contaminarea, capabilitatea procesului și jocul funcțional necesar pot schimba alegerea corectă.',
+        ],
+      },
+      {
+        heading: 'Când H7/h6 este un punct de pornire mai bun',
+        paragraphs: [
+          'H7/h6 ridică zona arborelui până când dimensiunea maximă a arborelui ajunge la dimensiunea de bază. Rezultă o relație cu joc mult mai strâns decât H7/g6, fără interferență dimensională intenționată în calculul implementat.',
+          'Poate fi util când poziționarea contează și se dorește un montaj apropiat, dar jocul minim teoretic zero înseamnă că variația reală de fabricație, starea suprafețelor și metoda de montaj trebuie luate în calcul.',
+        ],
+      },
+      {
+        heading: 'Când H7/k6 este un punct de pornire mai bun',
+        paragraphs: [
+          'H7/k6 este un ajustaj de tranziție în domeniul implementat de DraftFit. În funcție de dimensiunile reale obținute în câmpurile de toleranță, montajul poate avea fie un joc mic, fie o interferență mică.',
+          'Aceasta îl face un punct de pornire pentru poziționare mai strâns decât cele două ajustaje cu joc, dar comportamentul la montaj este mai puțin previzibil doar din denumire. Verifică jocul și interferența maximă pentru diametrul nominal real.',
+        ],
+      },
+      {
+        heading: 'Nu reutiliza valorile unui diametru pentru alt diametru',
+        paragraphs: [
+          'Lățimile toleranțelor și abaterile ISO se modifică în funcție de treapta dimensională nominală. Intervalul calculat la 35 mm este deci un exemplu, nu o valoare care poate fi refolosită pentru orice H7/g6, H7/h6 sau H7/k6.',
+          'Folosește calculatorul DraftFit la diametrul nominal real și verifică toate cele patru dimensiuni limită înainte de alegerea funcțională.',
+        ],
+      },
+      {
+        heading: 'FAQ: ce ajustaj ar trebui să aleg?',
+        paragraphs: [
+          'Alege H7/g6 când obiectivul dimensional principal este jocul garantat, H7/h6 când vrei o poziționare mai strânsă bazată în continuare pe joc și H7/k6 când este acceptabilă o tranziție între joc mic și interferență mică. Sunt puncte de pornire, nu reguli universale de aplicație.',
+          'Pentru ansambluri solicitate sau sensibile la temperatură, alegerea ajustajului poate necesita și verificări pentru dilatarea materialelor, presiunea de contact, forța de montaj, lubrifiere și condițiile de funcționare. Doar codul toleranței nu validează funcția mecanică a îmbinării.',
+        ],
+      },
+    ],
+  },
   'h7-g6-fit-explained': {
     title: 'Ajustajul H7/g6 explicat: limite, joc și utilizări tipice',
     description:
