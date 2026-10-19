@@ -20,22 +20,26 @@ const READING: Record<CalculatorId, ReadingItem[]> = {
     { href: '/standards/iso-286', en: 'ISO 286 reference', ro: 'Referință ISO 286' },
   ],
   oring: [
+    { href: '/guides/o-ring-groove-dimensions-squeeze-stretch-fill', en: 'O-ring groove dimensions: squeeze, stretch & fill', ro: 'Canal O-ring: compresie, întindere și umplere' },
     { href: '/guides/o-ring-squeeze-explained', en: 'O-ring squeeze explained', ro: 'Compresia O-ring explicată' },
     { href: '/guides/o-ring-groove-3-53-mm-guide', en: '3.53 mm groove guide', ro: 'Ghid canal pentru O-ring de 3,53 mm' },
     { href: '/standards/iso-3601', en: 'ISO 3601 reference', ro: 'Referință ISO 3601' },
   ],
   gdt: [
+    { href: '/guides/gdt-position-tolerance-explained-examples', en: 'Position tolerance explained', ro: 'Toleranța de poziție explicată' },
     { href: '/guides/gdt-position-vs-concentricity', en: 'Position vs concentricity', ro: 'Poziție vs concentricitate' },
     { href: '/standards/iso-1101', en: 'ISO 1101 reference', ro: 'Referință ISO 1101' },
     { href: '/standards/asme-y14-5', en: 'ASME Y14.5 reference', ro: 'Referință ASME Y14.5' },
   ],
   threads: [
+    { href: '/guides/metric-bolt-torque-8-8-vs-10-9-vs-12-9', en: 'Metric bolt torque: 8.8 vs 10.9 vs 12.9', ro: 'Cuplu șuruburi: 8.8 vs 10.9 vs 12.9' },
     { href: '/guides/bolt-preload-vs-torque', en: 'Bolt preload vs torque', ro: 'Prestrângere șurub vs cuplu' },
     { href: '/guides/m10-bolt-torque-guide', en: 'M10 bolt torque guide', ro: 'Ghid cuplu de strângere M10' },
     { href: '/standards/iso-898-1', en: 'ISO 898-1 reference', ro: 'Referință ISO 898-1' },
     { href: '/standards/iso-273', en: 'ISO 273 reference', ro: 'Referință ISO 273' },
   ],
   keys: [
+    { href: '/guides/din-6885-parallel-key-size-chart-design-guide', en: 'DIN 6885 key size chart & design guide', ro: 'DIN 6885: tabel și ghid de proiectare' },
     { href: '/guides/parallel-key-shear-vs-bearing-pressure', en: 'Key shear vs bearing pressure', ro: 'Forfecare pană vs presiune de contact' },
     { href: '/guides/din-6885-key-size-35-mm-shaft', en: '35 mm shaft key size', ro: 'Dimensiune pană pentru arbore de 35 mm' },
     { href: '/standards/din-6885', en: 'DIN 6885 reference', ro: 'Referință DIN 6885' },

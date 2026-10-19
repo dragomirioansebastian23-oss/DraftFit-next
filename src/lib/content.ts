@@ -156,31 +156,87 @@ export const GUIDES: GuideEntry[] = [
   },
   {
     slug: 'clearance-transition-interference-fits',
-    title: 'Clearance vs Transition vs Interference Fits',
+    title: 'Clearance vs Transition vs Interference Fits: ISO 286 Explained',
     description:
-      'A practical guide to clearance, transition and interference fits, including how limit dimensions determine the actual fit class.',
+      'Learn the difference between clearance, transition and interference fits, how limit sizes determine the actual fit, and when each fit family is a useful design starting point.',
     eyebrow: 'Fits & tolerances',
-    keywords: ['clearance fit', 'transition fit', 'interference fit', 'fit types'],
+    keywords: [
+      'clearance fit',
+      'transition fit',
+      'interference fit',
+      'ISO 286 fit types',
+      'hole shaft fit',
+      'engineering fits',
+    ],
     calculatorHref: '/calculators/iso-286-fit-calculator',
-    calculatorLabel: 'Calculate a fit',
+    calculatorLabel: 'Calculate clearance or interference with DraftFit',
     standardSlugs: ['iso-286'],
     sections: [
       {
-        heading: 'Clearance fit',
+        heading: 'Quick answer: the three fit families',
         paragraphs: [
-          'A clearance fit guarantees positive clearance at the worst-case limits. The smallest permissible hole remains larger than the largest permissible shaft.',
+          'A clearance fit guarantees space between the manufactured hole and shaft at the worst-case limits. A transition fit can result in either a small clearance or a small interference. An interference fit guarantees dimensional overlap at the worst-case limits.',
+          'The fit family is determined by the limit dimensions, not by the nominal diameter alone. Always compare the smallest and largest permissible hole and shaft sizes for the actual nominal-size range.',
+        ],
+        bullets: [
+          'Clearance fit: minimum clearance is greater than or equal to zero.',
+          'Transition fit: the possible range crosses zero, so either clearance or interference can occur.',
+          'Interference fit: even the loosest permissible combination still produces overlap.',
         ],
       },
       {
-        heading: 'Transition fit',
+        heading: 'How to calculate the fit from limit sizes',
         paragraphs: [
-          'A transition fit can produce either small clearance or small interference depending on the actual manufactured sizes within their tolerance zones.',
+          'Minimum clearance is the minimum hole size minus the maximum shaft size. Maximum clearance is the maximum hole size minus the minimum shaft size. If a calculated clearance becomes negative, that magnitude represents interference for that limit combination.',
+          'This limit-based approach is more useful than memorizing labels because it immediately shows the worst-case assembly condition that manufacturing tolerances allow.',
         ],
       },
       {
-        heading: 'Interference fit',
+        heading: 'When a clearance fit is a useful starting point',
         paragraphs: [
-          'An interference fit guarantees overlap at the limit sizes. Assembly force, contact pressure, material properties, wall thickness, surface condition and temperature can become important design variables.',
+          'Clearance fits are natural starting points when parts must assemble freely or move relative to one another. Running fits, sliding fits and easily removable locating assemblies commonly need some positive dimensional clearance.',
+          'The required clearance still depends on speed, lubrication, temperature, contamination, shaft deflection, surface finish and manufacturing capability. More clearance is not automatically better because excessive play can reduce positional accuracy and increase vibration or wear.',
+        ],
+      },
+      {
+        heading: 'When a transition fit is useful',
+        paragraphs: [
+          'Transition fits are used when accurate location matters but a guaranteed press fit is not required. Because the possible fit range crosses zero, one manufactured pair may assemble with light clearance while another pair at different tolerance limits may need light pressing.',
+          'That variability is the key design characteristic. Assembly method, inspection strategy and service removal requirements should therefore be considered together with the tolerance designation.',
+        ],
+      },
+      {
+        heading: 'When an interference fit is useful',
+        paragraphs: [
+          'Interference fits are useful when the shaft and hub must transmit load or maintain a secure position without relying only on a separate fastener. Press fits and shrink fits are common examples.',
+          'Once interference becomes functionally important, dimensional fit is only the beginning of the analysis. Contact pressure, hub wall thickness, material modulus and yield strength, friction, surface finish, assembly force and thermal installation conditions can all matter.',
+        ],
+      },
+      {
+        heading: 'Hole-basis selection and common H7 examples',
+        paragraphs: [
+          'In a hole-basis system, the H hole is held in a convenient standard tolerance zone and the shaft letter is changed to obtain different fit behavior. That is why combinations such as H7/g6, H7/h6, H7/k6 and H7/p6 are useful comparison points.',
+          'The exact clearance or interference is diameter-dependent. Use the real nominal diameter in the DraftFit ISO 286 calculator rather than copying a result from another size range.',
+        ],
+        bullets: [
+          'H7/g6 is a clearance-fit starting point in DraftFit’s supported data set.',
+          'H7/h6 is a close clearance/location starting point and can reach zero theoretical minimum clearance.',
+          'H7/k6 is a transition-fit starting point.',
+          'H7/p6 is an interference-fit starting point in the supported range.',
+        ],
+      },
+      {
+        heading: 'Common selection mistakes',
+        paragraphs: [
+          'A frequent mistake is to choose a fit only from a familiar designation without checking the actual limit sizes. Another is to ignore temperature, coating thickness, plating, surface finish or the manufacturing process that must repeatedly hold the specified limits.',
+          'For critical assemblies, fit selection should be tied to function: required movement, location accuracy, torque transfer, assembly method, serviceability and operating environment.',
+        ],
+      },
+      {
+        heading: 'FAQ: which fit type should I start with?',
+        paragraphs: [
+          'Start with a clearance fit when guaranteed free assembly or relative motion is required, a transition fit when accurate location with very small clearance or interference is acceptable, and an interference fit when positive dimensional overlap is part of the load-transfer or retention strategy.',
+          'Then calculate the actual limits for the nominal diameter and verify the mechanical conditions that the fit designation alone does not cover.',
         ],
       },
     ],
@@ -360,6 +416,278 @@ export const GUIDES: GuideEntry[] = [
     ],
   },
   {
+    slug: 'metric-bolt-torque-8-8-vs-10-9-vs-12-9',
+    title: 'Metric Bolt Torque: 8.8 vs 10.9 vs 12.9 + Calculator',
+    description:
+      'Compare metric bolt property classes 8.8, 10.9 and 12.9, understand why higher strength changes preload capacity, and calculate tightening torque with explicit friction inputs.',
+    eyebrow: 'Threads & fasteners',
+    keywords: [
+      'metric bolt torque chart',
+      '8.8 bolt torque',
+      '10.9 bolt torque',
+      '12.9 bolt torque',
+      'bolt preload calculator',
+      'ISO 898-1 bolt class',
+    ],
+    calculatorHref: '/calculators/metric-thread-bolt-calculator',
+    calculatorLabel: 'Calculate metric bolt preload and torque',
+    standardSlugs: ['iso-898-1'],
+    sections: [
+      {
+        heading: 'Quick comparison: 8.8, 10.9 and 12.9',
+        paragraphs: [
+          'Property class describes bolt mechanical strength, not one universal tightening torque. In DraftFit’s ISO 898-1 reference inputs, class 8.8 uses Rm 800 MPa, Re 640 MPa and proof stress 580 MPa; 10.9 uses 1000, 900 and 830 MPa; and 12.9 uses 1200, 1080 and 970 MPa respectively.',
+          'A stronger bolt can generally support a higher preload for the same threaded size, but the correct tightening torque also depends strongly on friction and the selected preload target.',
+        ],
+        bullets: [
+          '8.8: common high-strength carbon-steel reference class.',
+          '10.9: higher-strength alloy-steel reference class.',
+          '12.9: very high-strength alloy-steel reference class.',
+        ],
+      },
+      {
+        heading: 'Why there is no single metric bolt torque chart',
+        paragraphs: [
+          'Torque tables often look precise, but tightening torque is an indirect way of generating clamp force. Thread friction and under-head or nut-bearing friction consume a large part of the applied torque, so lubrication, coatings, surface finish and bearing geometry can change the preload produced by the same torque.',
+          'That is why DraftFit asks for friction-related inputs instead of treating an M10, M12 or M16 bolt as having one universally correct torque.',
+        ],
+      },
+      {
+        heading: 'Property class changes the allowable preload envelope',
+        paragraphs: [
+          'For the same thread geometry, moving from 8.8 to 10.9 or 12.9 increases the material-strength inputs used for preliminary stress checks. That can justify a higher target preload when the joint design, fastener product and applicable standard allow it.',
+          'Do not automatically apply the higher torque of a stronger bolt to an existing joint. Female-thread strength, joint members, washers, coatings and service loads can become the limiting elements.',
+        ],
+      },
+      {
+        heading: 'A practical tightening workflow',
+        paragraphs: [
+          'Choose the actual metric thread and pitch, select the correct property class, define a target preload appropriate to the joint, then use realistic thread and bearing friction values. Review the resulting bolt stress together with the estimated torque.',
+          'For production or safety-critical joints, validate the tightening method and friction assumptions with the actual fastener, lubricant, coating and joint stack-up.',
+        ],
+      },
+      {
+        heading: 'Dry vs lubricated torque',
+        paragraphs: [
+          'Lubrication usually reduces friction. If the target preload stays the same, lower friction generally means less torque is required. Applying a dry-joint torque value to a well-lubricated joint can therefore create substantially more preload than intended.',
+          'This is one reason a generic online torque value should be treated as a starting estimate rather than a production tightening specification.',
+        ],
+      },
+      {
+        heading: 'FAQ: should I always choose 12.9 instead of 8.8?',
+        paragraphs: [
+          'No. Higher bolt strength does not automatically make the complete joint better. Cost, toughness, fatigue behavior, corrosion environment, mating-thread strength, assembly control and service requirements all affect the correct fastener choice.',
+          'Use property class as one engineering input, then calculate preload and torque for the actual joint rather than selecting by strength number alone.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'din-6885-parallel-key-size-chart-design-guide',
+    title: 'DIN 6885 Parallel Key Size Chart + Design Guide',
+    description:
+      'Use shaft diameter to select a DIN 6885 parallel-key section, then check key length, shear stress and bearing pressure before finalizing the shaft-hub connection.',
+    eyebrow: 'Shaft connections',
+    keywords: [
+      'DIN 6885 key size chart',
+      'parallel key size chart',
+      'shaft key dimensions',
+      'keyway dimensions',
+      'parallel key calculator',
+    ],
+    calculatorHref: '/calculators/parallel-key-calculator',
+    calculatorLabel: 'Select and check a DIN 6885 parallel key',
+    standardSlugs: ['din-6885'],
+    sections: [
+      {
+        heading: 'Quick chart: representative implemented shaft ranges',
+        paragraphs: [
+          'DraftFit implements the DIN 6885-1 dimensional series for shaft diameters above 6 mm up to 130 mm. The calculator selects the nominal key width and height from the shaft-diameter range and then performs preliminary strength checks.',
+          'Representative implemented ranges are shown below as quick orientation. Use the calculator for the complete implemented series and exact shaft diameter.',
+        ],
+        bullets: [
+          'Over 12 to 17 mm shaft: 5 × 5 mm key section.',
+          'Over 17 to 22 mm shaft: 6 × 6 mm key section.',
+          'Over 22 to 30 mm shaft: 8 × 7 mm key section.',
+          'Over 30 to 38 mm shaft: 10 × 8 mm key section.',
+          'Over 38 to 44 mm shaft: 12 × 8 mm key section.',
+          'Over 44 to 50 mm shaft: 14 × 9 mm key section.',
+          'Over 50 to 58 mm shaft: 16 × 10 mm key section.',
+        ],
+      },
+      {
+        heading: 'Why shaft diameter selects the section but not the final design',
+        paragraphs: [
+          'The standard section gives a practical geometric starting point, but it does not prove that the connection can transmit the required torque. Key length, hub length, material strength and the allowable contact pressure can still govern the design.',
+          'A 35 mm shaft, for example, falls in DraftFit’s implemented over-30-to-38 mm range and therefore starts with a 10 × 8 mm key section. The required length must still be checked against the transmitted torque.',
+        ],
+      },
+      {
+        heading: 'From torque to tangential force',
+        paragraphs: [
+          'A preliminary parallel-key calculation converts shaft torque into tangential force at the shaft radius. That force acts through the key and creates both shear stress and local bearing pressure at the contact surfaces.',
+          'Because both failure modes depend on effective key length, increasing length can reduce calculated stress until other geometric or load-distribution limitations become important.',
+        ],
+      },
+      {
+        heading: 'Shear stress vs bearing pressure',
+        paragraphs: [
+          'The simplified shear check uses key width and effective length to estimate the area resisting tangential force. The bearing-pressure check uses the effective contact height and length between the key and mating component.',
+          'Contact pressure often deserves as much attention as key shear because the shaft, key and hub can have different materials and allowable stresses.',
+        ],
+      },
+      {
+        heading: 'Keyway geometry and manufacturing matter',
+        paragraphs: [
+          'Keyway depth, corner geometry, fit, surface condition and machining tolerances influence assembly and local stress concentration. Standard dimensions should therefore be transferred to the drawing together with the correct tolerance and manufacturing requirements.',
+          'The DraftFit strength result is a preliminary static screening calculation, not a complete DIN 6892 load-capacity assessment.',
+        ],
+      },
+      {
+        heading: 'FAQ: can I choose a larger key than the DIN 6885 size?',
+        paragraphs: [
+          'A larger key is not automatically a better design. Increasing keyway size removes more material from the shaft and hub and can change stress concentration and manufacturability. Start from the standardized section for the shaft range and solve the actual torque-capacity problem with length, materials and connection design.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'o-ring-groove-dimensions-squeeze-stretch-fill',
+    title: 'O-Ring Groove Dimensions: Squeeze, Stretch & Gland Fill Explained',
+    description:
+      'Design an O-ring groove by checking squeeze, stretch or compression, gland fill and application type instead of relying on one universal groove-depth table.',
+    eyebrow: 'Sealing',
+    keywords: [
+      'O-ring groove dimensions',
+      'O-ring gland dimensions',
+      'O-ring squeeze',
+      'O-ring stretch',
+      'O-ring gland fill',
+      'ISO 3601 groove calculator',
+    ],
+    calculatorHref: '/calculators/o-ring-groove-calculator',
+    calculatorLabel: 'Calculate O-ring groove dimensions',
+    standardSlugs: ['iso-3601'],
+    sections: [
+      {
+        heading: 'Quick answer: groove depth is only one part of the gland',
+        paragraphs: [
+          'An O-ring groove cannot be selected safely from cross-section alone. The application type, squeeze direction, groove width, stretch or compression, gland fill, extrusion gap, pressure, material and tolerances all influence the final geometry.',
+          'DraftFit therefore treats radial static, radial dynamic and face-seal situations separately and evaluates several geometry checks together.',
+        ],
+      },
+      {
+        heading: 'Squeeze: how much the cross-section is compressed',
+        paragraphs: [
+          'Squeeze compares the free O-ring cross-section with the installed space available in the compression direction. Enough squeeze is needed to create sealing contact, but excessive squeeze can increase friction, heat, compression set and assembly difficulty.',
+          'The appropriate target depends on whether the application is static or dynamic and on the material, temperature and service conditions.',
+        ],
+      },
+      {
+        heading: 'Stretch and compression: what happens around the circumference',
+        paragraphs: [
+          'In radial glands the O-ring may be stretched over a piston or compressed into a bore groove. Circumferential deformation changes the installed cross-section and can influence both squeeze and gland fill.',
+          'Avoid treating nominal O-ring inside diameter as independent from the hardware diameter. The installed geometry should be checked as a system.',
+        ],
+      },
+      {
+        heading: 'Gland fill: leave room for the seal',
+        paragraphs: [
+          'Gland fill compares the O-ring volume with the available groove volume. A groove that is too full can leave insufficient room for thermal expansion, material swell and dimensional tolerances.',
+          'Groove width is therefore not just a packaging dimension. It works together with depth and O-ring cross-section to control available volume.',
+        ],
+      },
+      {
+        heading: 'Static vs dynamic grooves',
+        paragraphs: [
+          'Dynamic seals add friction and wear to the design problem. A groove suitable for a static radial seal should not automatically be reused for reciprocating or rotary motion.',
+          'Application-specific squeeze targets, surface finish, lubrication, extrusion risk and speed need to be considered before finalizing a dynamic gland.',
+        ],
+      },
+      {
+        heading: 'Extrusion gap, pressure and backup rings',
+        paragraphs: [
+          'At higher pressure, the clearance gap between hardware components can allow elastomer extrusion. Material hardness, pressure, temperature and gap size influence whether a backup ring or tighter hardware clearance is required.',
+          'The groove calculator provides preliminary geometry checks, but pressure capability still needs application-specific validation.',
+        ],
+      },
+      {
+        heading: 'FAQ: why do groove tables give different dimensions?',
+        paragraphs: [
+          'Different tables may target different application types, seal standards, squeeze ranges, tolerances or assumptions. Before comparing numbers, confirm that the same O-ring series, gland type and service condition are being compared.',
+          'Use the calculator to make the assumptions explicit instead of copying one dimension without the rest of the gland design context.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'gdt-position-tolerance-explained-examples',
+    title: 'GD&T Position Tolerance Explained with Practical Examples',
+    description:
+      'Understand what position tolerance controls, how datums define the reference frame, why the tolerance zone is often diametrical, and how to read a practical feature-control frame.',
+    eyebrow: 'GD&T',
+    keywords: [
+      'GD&T position tolerance',
+      'true position explained',
+      'position tolerance example',
+      'feature control frame position',
+      'datum position tolerance',
+    ],
+    calculatorHref: '/calculators/gdt-reference-calculator',
+    calculatorLabel: 'Open the GD&T reference calculator',
+    standardSlugs: ['iso-1101', 'asme-y14-5'],
+    sections: [
+      {
+        heading: 'Quick answer: what position tolerance controls',
+        paragraphs: [
+          'Position tolerance controls the allowed location of a feature relative to theoretically exact dimensions and, when specified, a datum reference frame. It is commonly used for holes, pins, slots and patterns where assembly location matters.',
+          'For a cylindrical feature, the tolerance zone is often a cylinder located at the basic position of the feature axis. The actual extracted or derived feature must satisfy the applicable standard definition and drawing requirements.',
+        ],
+      },
+      {
+        heading: 'Why datums matter',
+        paragraphs: [
+          'Datums establish the reference frame from which the feature location and orientation are evaluated. A primary datum constrains the first degrees of freedom, with secondary and tertiary datums completing the intended setup as required by the drawing.',
+          'Without understanding the datum scheme, a position tolerance value by itself does not fully describe how the part should be set up or inspected.',
+        ],
+      },
+      {
+        heading: 'Reading a simple feature-control frame',
+        paragraphs: [
+          'A frame such as position | diameter 0.10 | A | B | C communicates the geometric characteristic, the size and shape of the tolerance zone, and the referenced datum sequence. The exact interpretation still depends on the governing drawing standard and any material-condition modifiers.',
+          'The boxed or basic dimensions on the drawing establish the theoretically exact feature location; the position tolerance defines how far the actual feature may depart from that ideal location.',
+        ],
+      },
+      {
+        heading: 'Practical hole-pattern example',
+        paragraphs: [
+          'Consider a bolt-hole pattern located from datum surfaces A, B and C. Basic dimensions define the exact coordinates of each hole. The position callout then limits the allowed displacement of each controlled hole axis relative to that datum reference frame.',
+          'This is functionally different from placing independent plus/minus coordinate tolerances on X and Y because a cylindrical position zone represents radial location error more directly.',
+        ],
+      },
+      {
+        heading: 'Position is not the same as concentricity or runout',
+        paragraphs: [
+          'Position, concentricity and runout control different geometric relationships. A feature that must locate an axis relative to datums may call for position, while rotating-surface behavior may be better represented by circular or total runout depending on the functional requirement.',
+          'DraftFit keeps these controls separate and also reflects the fact that ASME Y14.5-2018 removed the concentricity and symmetry symbols from that edition.',
+        ],
+      },
+      {
+        heading: 'Inspection and measurement considerations',
+        paragraphs: [
+          'Position can be evaluated with coordinate measurement, functional gaging or other methods appropriate to the feature and specification. The inspection method should reproduce the datum reference framework and the applicable material-condition rules when those are part of the callout.',
+          'For production drawings, make sure the selected control is both functionally meaningful and realistically inspectable.',
+        ],
+      },
+      {
+        heading: 'FAQ: is “true position” the same as position tolerance?',
+        paragraphs: [
+          '“True position” is widely used conversationally, especially in training material, but modern drawings should be read using the terminology and symbols of the stated governing standard. The key engineering idea is the allowable location of the controlled feature relative to its theoretically exact position and datum framework.',
+        ],
+      },
+    ],
+  },
+  {
     slug: 'gdt-position-vs-concentricity',
     title: 'GD&T Position vs Concentricity: Practical Selection Notes',
     description:
@@ -397,7 +725,7 @@ export const STANDARDS: StandardEntry[] = [
       'ISO 286-1:2010 remains current and was confirmed in 2026. Always verify the edition required by your project.',
     calculatorHref: '/calculators/iso-286-fit-calculator',
     calculatorLabel: 'ISO 286 Fit Calculator',
-    guideSlugs: ['h7-g6-vs-h7-h6-vs-h7-k6', 'h7-g6-fit-explained', 'clearance-transition-interference-fits'],
+    guideSlugs: ['h7-g6-vs-h7-h6-vs-h7-k6', 'clearance-transition-interference-fits', 'h7-g6-fit-explained'],
     sections: [
       {
         heading: 'What the standard system covers',
@@ -423,7 +751,7 @@ export const STANDARDS: StandardEntry[] = [
       'ISO 3601-2:2025 is the current published housing-dimensions edition for general applications.',
     calculatorHref: '/calculators/o-ring-groove-calculator',
     calculatorLabel: 'O-Ring Groove Calculator',
-    guideSlugs: ['o-ring-squeeze-explained', 'o-ring-groove-3-53-mm-guide'],
+    guideSlugs: ['o-ring-groove-dimensions-squeeze-stretch-fill', 'o-ring-squeeze-explained', 'o-ring-groove-3-53-mm-guide'],
     sections: [
       {
         heading: 'What Part 2 addresses',
@@ -449,7 +777,7 @@ export const STANDARDS: StandardEntry[] = [
       'ISO 1101:2017 remains the current published edition on the ISO catalogue. Check the edition specified on the drawing.',
     calculatorHref: '/calculators/gdt-reference-calculator',
     calculatorLabel: 'GD&T Reference',
-    guideSlugs: ['gdt-position-vs-concentricity'],
+    guideSlugs: ['gdt-position-tolerance-explained-examples', 'gdt-position-vs-concentricity'],
     sections: [
       {
         heading: 'Role in GPS',
@@ -475,7 +803,7 @@ export const STANDARDS: StandardEntry[] = [
       'ISO 273:1979 was reviewed and confirmed in 2024 and remains current.',
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Metric Thread & Bolt Calculator',
-    guideSlugs: ['bolt-preload-vs-torque', 'm10-bolt-torque-guide'],
+    guideSlugs: ['metric-bolt-torque-8-8-vs-10-9-vs-12-9', 'bolt-preload-vs-torque', 'm10-bolt-torque-guide'],
     sections: [
       {
         heading: 'What it specifies',
@@ -501,7 +829,7 @@ export const STANDARDS: StandardEntry[] = [
       'ISO 898-1:2013 was confirmed in 2025 and remains current while a replacement work item is under development.',
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Metric Thread & Bolt Calculator',
-    guideSlugs: ['bolt-preload-vs-torque', 'm10-bolt-torque-guide'],
+    guideSlugs: ['metric-bolt-torque-8-8-vs-10-9-vs-12-9', 'bolt-preload-vs-torque', 'm10-bolt-torque-guide'],
     sections: [
       {
         heading: 'What the standard covers',
@@ -527,7 +855,7 @@ export const STANDARDS: StandardEntry[] = [
       'DIN Media lists DIN 6885-1:2021-11 as the current edition.',
     calculatorHref: '/calculators/parallel-key-calculator',
     calculatorLabel: 'Parallel Key Calculator',
-    guideSlugs: ['parallel-key-shear-vs-bearing-pressure', 'din-6885-key-size-35-mm-shaft'],
+    guideSlugs: ['din-6885-parallel-key-size-chart-design-guide', 'parallel-key-shear-vs-bearing-pressure', 'din-6885-key-size-35-mm-shaft'],
     sections: [
       {
         heading: 'What the standard provides',
@@ -553,7 +881,7 @@ export const STANDARDS: StandardEntry[] = [
       'ASME lists Y14.5-2018, reaffirmed in 2024, as the version currently in effect.',
     calculatorHref: '/calculators/gdt-reference-calculator',
     calculatorLabel: 'GD&T Reference',
-    guideSlugs: ['gdt-position-vs-concentricity'],
+    guideSlugs: ['gdt-position-tolerance-explained-examples', 'gdt-position-vs-concentricity'],
     sections: [
       {
         heading: 'Why edition matters',
