@@ -20,9 +20,10 @@ const READING: Record<CalculatorId, ReadingItem[]> = {
     { href: '/standards/iso-286', en: 'ISO 286 reference', ro: 'Referință ISO 286' },
   ],
   oring: [
+    { href: '/guides/o-ring-size-calculator-guide', en: 'O-ring size calculator guide', ro: 'Ghid calculator dimensiune O-ring' },
+    { href: '/guides/how-to-choose-o-ring-size', en: 'How to choose an O-ring size', ro: 'Cum alegi dimensiunea unui O-ring' },
     { href: '/guides/o-ring-groove-dimensions-squeeze-stretch-fill', en: 'O-ring groove dimensions: squeeze, stretch & fill', ro: 'Canal O-ring: compresie, întindere și umplere' },
     { href: '/guides/o-ring-squeeze-explained', en: 'O-ring squeeze explained', ro: 'Compresia O-ring explicată' },
-    { href: '/guides/o-ring-groove-3-53-mm-guide', en: '3.53 mm groove guide', ro: 'Ghid canal pentru O-ring de 3,53 mm' },
     { href: '/standards/iso-3601', en: 'ISO 3601 reference', ro: 'Referință ISO 3601' },
   ],
   gdt: [
@@ -32,9 +33,10 @@ const READING: Record<CalculatorId, ReadingItem[]> = {
     { href: '/standards/asme-y14-5', en: 'ASME Y14.5 reference', ro: 'Referință ASME Y14.5' },
   ],
   threads: [
+    { href: '/guides/bolt-preload-calculation', en: 'Bolt preload calculation explained', ro: 'Calculul prestrângerii șurubului' },
+    { href: '/guides/bolt-preload-vs-torque', en: 'Torque to preload explained', ro: 'Cuplu spre prestrângere explicat' },
+    { href: '/guides/iso-273-clearance-hole-sizes', en: 'ISO 273 clearance hole sizes', ro: 'Dimensiuni găuri de trecere ISO 273' },
     { href: '/guides/metric-bolt-torque-8-8-vs-10-9-vs-12-9', en: 'Metric bolt torque: 8.8 vs 10.9 vs 12.9', ro: 'Cuplu șuruburi: 8.8 vs 10.9 vs 12.9' },
-    { href: '/guides/bolt-preload-vs-torque', en: 'Bolt preload vs torque', ro: 'Prestrângere șurub vs cuplu' },
-    { href: '/guides/m10-bolt-torque-guide', en: 'M10 bolt torque guide', ro: 'Ghid cuplu de strângere M10' },
     { href: '/standards/iso-898-1', en: 'ISO 898-1 reference', ro: 'Referință ISO 898-1' },
     { href: '/standards/iso-273', en: 'ISO 273 reference', ro: 'Referință ISO 273' },
   ],

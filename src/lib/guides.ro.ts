@@ -221,9 +221,9 @@ export const GUIDES_RO: Record<string, RomanianGuideTranslation> = {
     ],
   },
   'bolt-preload-vs-torque': {
-    title: 'Prestrângerea șurubului vs cuplul de strângere',
+    title: 'Cuplu spre prestrângere: prestrângerea șurubului vs cuplul de strângere',
     description:
-      'Înțelege de ce cuplul de strângere este doar o metodă indirectă de a crea prestrângerea șurubului și de ce frecarea domină multe estimări de cuplu.',
+      'Înțelege cum cuplul de strângere creează prestrângerea șurubului, cum se estimează prestrângerea și de ce frecarea poate schimba forța de strângere obținută din același cuplu.',
     eyebrow: 'Filete și elemente de asamblare',
     calculatorLabel: 'Deschide calculatorul pentru filete și șuruburi',
     sections: [
@@ -237,6 +237,19 @@ export const GUIDES_RO: Record<string, RomanianGuideTranslation> = {
         heading: 'De ce cuplul este incert',
         paragraphs: [
           'O mare parte din cuplul de strângere este consumată de frecarea din filet și de sub suprafața de reazem. Modificările de lubrifiere, acoperire, rugozitate și geometrie a șaibei pot schimba semnificativ prestrângerea chiar dacă se aplică același cuplu.',
+        ],
+      },
+      {
+        heading: 'De la prestrângerea țintă la cuplul de strângere',
+        paragraphs: [
+          'Un calcul practic pornește de obicei de la o prestrângere țintă și estimează apoi cuplul necesar pentru a o crea. Modelul de cuplu combină geometria filetului, geometria de reazem și ipotezele de frecare, deci rezultatul nu este o valoare universală pentru o anumită dimensiune de șurub.',
+          'Dacă frecarea scade iar prestrângerea țintă rămâne aceeași, cuplul necesar scade de regulă. Dacă păstrezi același cuplu după reducerea frecării, prestrângerea rezultată poate crește semnificativ.',
+        ],
+      },
+      {
+        heading: 'De ce cuplul și prestrângerea nu au o relație unu-la-unu',
+        paragraphs: [
+          'Două șuruburi nominal identice pot ajunge la prestrângeri diferite din același cuplu dacă lubrifierea, acoperirea, finisajul, șaiba sau diametrul de reazem diferă. Pentru îmbinări critice este necesară o metodă de strângere validată, nu doar o valoare generică de cuplu.',
         ],
       },
       {
@@ -577,6 +590,159 @@ export const GUIDES_RO: Record<string, RomanianGuideTranslation> = {
         heading: 'Contextul ASME Y14.5-2018',
         paragraphs: [
           'DraftFit elimină intenționat concentricitatea și simetria din modul ASME Y14.5-2018 deoarece simbolurile acestor caracteristici au fost eliminate din acea ediție. Desenele vechi existente pot necesita în continuare interpretare conform ediției specificate pe desen.',
+        ],
+      },
+    ],
+  },
+
+  'iso-273-clearance-hole-sizes': {
+    title: 'Dimensiuni găuri de trecere ISO 273 pentru șuruburi metrice: tabel și ghid',
+    description:
+      'Înțelege seriile ISO 273 pentru găuri de trecere, când se folosesc variantele fine, medii sau grosiere și cum le integrezi în calculul unui șurub metric.',
+    eyebrow: 'Filete și elemente de asamblare',
+    calculatorLabel: 'Deschide calculatorul pentru filete și șuruburi metrice',
+    sections: [
+      {
+        heading: 'Răspuns rapid: ce acoperă ISO 273',
+        paragraphs: [
+          'ISO 273 oferă serii generale de diametre pentru găuri de trecere destinate șuruburilor metrice. DraftFit afișează opțiunile fine, medii și grosiere în același flux cu geometria filetului și calculele de șurub, astfel încât gaura să fie aleasă pornind de la dimensiunea elementului de fixare.',
+          'O gaură de trecere este intenționat mai mare decât tija sau diametrul nominal al filetului. Seria selectată determină cât joc de montaj este disponibil.',
+        ],
+        bullets: [
+          'Serie fină: joc de montaj mai mic când alinierea este bine controlată.',
+          'Serie medie: punct de pornire general pentru multe ansambluri.',
+          'Serie grosieră: toleranță mai mare la nealiniere și variații de montaj.',
+        ],
+      },
+      {
+        heading: 'De ce există mai multe serii de găuri de trecere',
+        paragraphs: [
+          'O singură dimensiune de gaură nu este optimă pentru toate ansamblurile. O gaură mai strânsă poate ajuta poziționarea, dar lasă mai puțin loc pentru toleranțe și nealiniere. O gaură mai mare ușurează montajul, dar reduce precizia cu care șurubul poate contribui la localizarea pieselor.',
+        ],
+      },
+      {
+        heading: 'Nu confunda gaura de trecere cu gaura pentru tarodare',
+        paragraphs: [
+          'Gaura de trecere permite șurubului să treacă fără a forma filet interior. Gaura pentru tarodare este mai mică deoarece trebuie să rămână material pentru filetul interior. Sunt două intrări de proiectare diferite, chiar dacă pornesc de la aceeași notație metrică.',
+        ],
+      },
+      {
+        heading: 'Flux practic în DraftFit',
+        paragraphs: [
+          'Selectează mai întâi dimensiunea filetului metric, apoi analizează seria ISO 273 împreună cu geometria filetului, estimarea găurii de tarodare și calculele de prestrângere. Astfel reduci riscul de a confunda diametrul unei găuri de trecere cu diametrul necesar pentru filetare.',
+        ],
+      },
+    ],
+  },
+  'bolt-preload-calculation': {
+    title: 'Calculul prestrângerii șurubului: formulă, tensiune și calculator',
+    description:
+      'Află ce este prestrângerea unui șurub, cum se estimează o valoare țintă din rezistența șurubului și aria de tensiune și ce trebuie verificat înainte de calculul cuplului.',
+    eyebrow: 'Filete și elemente de asamblare',
+    calculatorLabel: 'Calculează prestrângerea și cuplul șurubului',
+    sections: [
+      {
+        heading: 'Răspuns rapid: ce este prestrângerea',
+        paragraphs: [
+          'Prestrângerea este forța de întindere introdusă în șurub în timpul strângerii. Această forță produce forța de strângere din îmbinare înainte de aplicarea sarcinilor externe.',
+          'Pentru dimensionare preliminară, o prestrângere țintă poate fi exprimată ca o fracție aleasă dintr-o forță bazată pe aria de tensiune a filetului și o valoare de rezistență aplicabilă. Fracția aleasă este o ipoteză de proiectare, nu o constantă universală.',
+        ],
+      },
+      {
+        heading: 'De ce contează aria de tensiune a filetului',
+        paragraphs: [
+          'Secțiunea filetată nu folosește aria circulară completă a diametrului nominal pentru verificarea la întindere. Aria de tensiune este mai mică și depinde de geometria filetului, astfel încât pasul poate schimba tensiunea calculată pentru aceeași prestrângere.',
+        ],
+      },
+      {
+        heading: 'Flux practic pentru calculul prestrângerii',
+        paragraphs: [
+          'Pornește de la filetul și pasul reale, alege clasa de proprietăți sau datele de material verificate, calculează aria de tensiune și stabilește o prestrângere potrivită îmbinării. Verifică tensiunea rezultată înainte de a transforma prestrângerea într-un cuplu estimat.',
+        ],
+      },
+      {
+        heading: 'Prestrângerea nu este același lucru cu cuplul',
+        paragraphs: [
+          'Prestrângerea este o forță în șurub și în îmbinare. Cuplul este o intrare de montaj folosită pentru a genera acea forță. Frecarea din filet și de la reazem face ca același cuplu să poată produce prestrângeri diferite.',
+        ],
+      },
+      {
+        heading: 'Ce nu demonstrează acest calcul',
+        paragraphs: [
+          'Verificarea prestrângerii nu validează singură îmbinarea completă. Distribuția sarcinii externe, oboseala, separarea, relaxarea, temperatura, smulgerea filetului și rezistența pieselor strânse pot controla proiectul.',
+        ],
+      },
+    ],
+  },
+  'o-ring-size-calculator-guide': {
+    title: 'Ghid calculator dimensiune O-ring: diametru interior, secțiune, întindere și canal',
+    description:
+      'Află cum diametrul interior și secțiunea O-ringului influențează întinderea, compresia și potrivirea în canal și cum se verifică geometria montată.',
+    eyebrow: 'Etanșare',
+    calculatorLabel: 'Deschide calculatorul pentru canal O-ring',
+    sections: [
+      {
+        heading: 'Răspuns rapid: cele două dimensiuni principale ale unui O-ring',
+        paragraphs: [
+          'Un O-ring este descris în principal prin diametrul interior și diametrul secțiunii transversale. Aceste două valori definesc inelul liber, dar nu demonstrează singure că inelul va funcționa într-un anumit canal.',
+          'În montaj trebuie verificate și întinderea sau compresia circumferențială, compresia secțiunii și gradul de umplere al locașului.',
+        ],
+      },
+      {
+        heading: 'Diametrul interior controlează potrivirea circumferențială',
+        paragraphs: [
+          'Diametrul interior liber determină cum se așază O-ringul pe piston, arbore sau diametrul de poziționare. Dacă diametrul de montaj este mai mare, inelul se întinde. Întinderea excesivă poate modifica și secțiunea efectivă montată.',
+        ],
+      },
+      {
+        heading: 'Secțiunea controlează compresia și proporțiile canalului',
+        paragraphs: [
+          'Diametrul secțiunii transversale este comprimat de adâncimea canalului, deci influențează direct procentul de compresie și dimensiunile necesare ale locașului.',
+        ],
+      },
+      {
+        heading: 'Analizează împreună dimensiunea, compresia, întinderea și umplerea',
+        paragraphs: [
+          'Un calcul util tratează geometria montată ca pe un sistem. O compresie aparent corectă poate deveni problematică dacă întinderea este prea mare sau dacă locașul este prea plin pentru toleranțe și efectele de funcționare.',
+        ],
+      },
+    ],
+  },
+  'how-to-choose-o-ring-size': {
+    title: 'Cum alegi dimensiunea unui O-ring pentru un canal',
+    description:
+      'Flux practic pentru alegerea diametrului interior și a secțiunii O-ringului din geometria canalului și verificarea compresiei, întinderii și umplerii.',
+    eyebrow: 'Etanșare',
+    calculatorLabel: 'Verifică O-ringul ales în calculatorul de canal',
+    sections: [
+      {
+        heading: 'Pornește de la aplicație, nu doar de la catalog',
+        paragraphs: [
+          'Alegerea O-ringului începe cu tipul etanșării, statică sau dinamică, radială sau axială, spațiul disponibil și diametrele care poziționează inelul. Aceste condiții determină ce dimensiuni pot fi montate cu o compresie și o întindere rezonabile.',
+        ],
+      },
+      {
+        heading: 'Pasul 1: alege o secțiune practică',
+        paragraphs: [
+          'Secțiunea influențează adâncimea și lățimea canalului, toleranța compresiei și volumul de elastomer care trebuie să încapă în locaș. Pornește cu o secțiune compatibilă cu spațiul disponibil și tipul aplicației.',
+        ],
+      },
+      {
+        heading: 'Pasul 2: alege diametrul interior după diametrul de poziționare',
+        paragraphs: [
+          'Selectează un diametru interior care produce o condiție circumferențială potrivită pe diametrul de montaj. Pentru multe aplicații radiale este mai util să verifici procentul de întindere decât să alegi pur și simplu cel mai apropiat diametru nominal.',
+        ],
+      },
+      {
+        heading: 'Pasul 3: calculează compresia și umplerea canalului',
+        paragraphs: [
+          'Folosește adâncimea canalului pentru compresie și aria locașului pentru gradul de umplere. Ambele trebuie analizate împreună cu toleranțele, deoarece geometria nefavorabilă poate diferi semnificativ de rezultatul nominal.',
+        ],
+      },
+      {
+        heading: 'Pasul 4: verifică și condițiile pe care calculatorul de dimensiune nu le decide',
+        paragraphs: [
+          'Presiunea, jocul de extrudare, temperatura, compatibilitatea fluidului, duritatea elastomerului, finisajul, lubrifierea și viteza pot modifica proiectul acceptabil. Folosește calculul geometric pentru selecție preliminară și validează apoi condițiile reale de funcționare.',
         ],
       },
     ],

@@ -156,11 +156,12 @@ export const GUIDES: GuideEntry[] = [
   },
   {
     slug: 'clearance-transition-interference-fits',
-    title: 'Clearance vs Transition vs Interference Fits: ISO 286 Explained',
+    title: 'Clearance Fit vs Interference Fit: Differences, Transition Fits & ISO 286',
     description:
       'Learn the difference between clearance, transition and interference fits, how limit sizes determine the actual fit, and when each fit family is a useful design starting point.',
     eyebrow: 'Fits & tolerances',
     keywords: [
+      'clearance fit vs interference fit',
       'clearance fit',
       'transition fit',
       'interference fit',
@@ -274,11 +275,11 @@ export const GUIDES: GuideEntry[] = [
   },
   {
     slug: 'bolt-preload-vs-torque',
-    title: 'Bolt Preload vs Tightening Torque',
+    title: 'Torque to Preload: Bolt Preload vs Tightening Torque Explained',
     description:
-      'Understand why tightening torque is only an indirect way to create bolt preload and why friction dominates many torque estimates.',
+      'Learn how tightening torque creates bolt preload, how preload is estimated, and why friction can change the clamp force produced by the same torque.',
     eyebrow: 'Threads & fasteners',
-    keywords: ['bolt preload', 'bolt torque', 'tightening torque', 'preload vs torque'],
+    keywords: ['torque to preload', 'tightening torque to preload a bolt', 'bolt preload', 'bolt torque', 'tightening torque', 'preload vs torque'],
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Open Thread & Bolt Calculator',
     standardSlugs: ['iso-898-1', 'iso-273'],
@@ -293,6 +294,19 @@ export const GUIDES: GuideEntry[] = [
         heading: 'Why torque is uncertain',
         paragraphs: [
           'A large part of tightening torque is consumed by friction in the threads and under the bearing surface. Changes in lubrication, coating, surface finish and washer geometry can therefore change preload significantly even when the same torque is applied.',
+        ],
+      },
+      {
+        heading: 'From target preload to tightening torque',
+        paragraphs: [
+          'A practical calculation usually starts with a target preload and then estimates the tightening torque required to create it. The torque model combines thread geometry, bearing geometry and friction assumptions, so the result is not a universal torque value for a bolt size.',
+          'If friction is reduced while the target preload stays the same, the required tightening torque generally falls. If the same torque is applied after friction has been reduced, the resulting preload can rise substantially.',
+        ],
+      },
+      {
+        heading: 'Why torque and preload are not one-to-one',
+        paragraphs: [
+          'Two nominally identical bolts can reach different preload from the same applied torque when lubrication, coatings, surface finish, washer condition or bearing diameter differ. This scatter is why critical joints often need a validated tightening method rather than a generic torque number.',
         ],
       },
       {
@@ -712,6 +726,249 @@ export const GUIDES: GuideEntry[] = [
       },
     ],
   },
+
+  {
+    slug: 'iso-273-clearance-hole-sizes',
+    title: 'ISO 273 Clearance Hole Sizes for Metric Bolts: Chart & Guide',
+    description:
+      'Understand ISO 273 clearance-hole series for metric bolts and screws, when fine, medium or coarse clearance is appropriate, and how to use the DraftFit thread and bolt calculator.',
+    eyebrow: 'Threads & fasteners',
+    keywords: [
+      'ISO 273',
+      'ISO 273 clearance hole sizes',
+      'metric bolt clearance hole chart',
+      'bolt clearance hole size',
+      'screw clearance hole',
+    ],
+    calculatorHref: '/calculators/metric-thread-bolt-calculator',
+    calculatorLabel: 'Open the metric thread and bolt calculator',
+    standardSlugs: ['iso-273'],
+    sections: [
+      {
+        heading: 'Quick answer: what ISO 273 covers',
+        paragraphs: [
+          'ISO 273 provides general-purpose clearance-hole diameter series for metric bolts and screws. DraftFit exposes the fine, medium and coarse clearance-hole choices alongside the metric thread and bolt workflow so the hole can be selected from the fastener size rather than guessed from nominal diameter alone.',
+          'A clearance hole is intentionally larger than the fastener shank or nominal thread diameter. The selected series determines how much assembly clearance is provided.',
+        ],
+        bullets: [
+          'Fine series: smaller assembly clearance where alignment and location are more tightly controlled.',
+          'Medium series: general-purpose starting point for many assemblies.',
+          'Coarse series: more assembly allowance where alignment, coating or installation variation requires it.',
+        ],
+      },
+      {
+        heading: 'Why there is more than one clearance-hole series',
+        paragraphs: [
+          'One hole size cannot serve every assembly equally well. A tighter hole can improve positional control but leaves less room for manufacturing variation and assembly misalignment. A larger hole improves assembly freedom but reduces how closely the fastener locates the parts.',
+          'The correct series therefore depends on the function of the joint, the tolerances of the parts, the installation method and whether the bolt is intended mainly to clamp or also to help locate components.',
+        ],
+      },
+      {
+        heading: 'Do not confuse clearance-hole size with tap-drill size',
+        paragraphs: [
+          'A clearance hole allows the bolt or screw to pass through without forming an internal thread. A tap-drill hole is smaller because material must remain for the internal thread. These are different design inputs even when they start from the same metric thread designation.',
+          'Use the clearance-hole output when the fastener passes through a component and engages a nut or a threaded part elsewhere. Use a tap-drill estimate when the component itself will be internally threaded.',
+        ],
+      },
+      {
+        heading: 'Practical workflow in DraftFit',
+        paragraphs: [
+          'Select the metric thread size first, then review the available ISO 273 clearance-hole series together with the thread geometry, tap-drill estimate and bolt calculations. Keeping these values in one workflow helps avoid mixing a clearance-hole diameter with a thread-forming diameter.',
+        ],
+        bullets: [
+          'Choose the actual metric fastener size.',
+          'Select fine, medium or coarse clearance according to the assembly need.',
+          'Check edge distance, washer or bearing area and surrounding part geometry separately.',
+          'Do not treat a clearance-hole table as a complete joint-strength check.',
+        ],
+      },
+      {
+        heading: 'FAQ: should medium clearance always be the default?',
+        paragraphs: [
+          'Medium clearance is a useful general-purpose reference, but it is not automatically correct for every joint. Tight location requirements may favor a finer series, while assemblies with larger positional variation may require a coarser series.',
+          'Use the standard series as a starting point, then confirm that the selected hole works with the real tolerances, washers, bearing surfaces and assembly process.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'bolt-preload-calculation',
+    title: 'Bolt Preload Calculation Explained: Formula, Stress & Calculator',
+    description:
+      'Learn what bolt preload is, how a target preload is estimated from bolt strength, how stress area matters, and how to check preload before estimating tightening torque.',
+    eyebrow: 'Threads & fasteners',
+    keywords: [
+      'bolt preload calculation',
+      'bolt preload calculator',
+      'bolt preload formula',
+      'bolt clamp force calculation',
+      'preload from bolt strength',
+    ],
+    calculatorHref: '/calculators/metric-thread-bolt-calculator',
+    calculatorLabel: 'Calculate bolt preload and tightening torque',
+    standardSlugs: ['iso-898-1'],
+    sections: [
+      {
+        heading: 'Quick answer: what bolt preload means',
+        paragraphs: [
+          'Bolt preload is the tensile force introduced into a fastener during tightening. That tensile force creates clamp force in the joint before external service loads are applied.',
+          'For preliminary sizing, a target preload is often expressed as a chosen fraction of a strength-based force derived from the bolt stress area and an applicable material-strength value. The selected fraction is a design assumption, not a universal constant.',
+        ],
+      },
+      {
+        heading: 'Why tensile stress area matters',
+        paragraphs: [
+          'Threaded sections do not use the full nominal shank area for tensile calculations. A metric thread has a smaller tensile stress area that reflects the thread geometry, so preload and stress checks should use the appropriate threaded-area model rather than the circular area from nominal diameter alone.',
+          'That is why two bolts with the same nominal diameter but different pitch can have different stress areas and therefore different calculated stress for the same preload.',
+        ],
+      },
+      {
+        heading: 'A practical preload calculation workflow',
+        paragraphs: [
+          'Start with the actual metric thread and pitch, identify the bolt property class or other verified material-strength input, calculate the tensile stress area, then choose a preload target appropriate to the joint. Divide the selected preload by the stress area to review the corresponding bolt stress.',
+        ],
+        bullets: [
+          'Thread size and pitch define the stress area.',
+          'Property class supplies strength inputs for the preliminary check.',
+          'Target preload sets the intended clamp force.',
+          'Bolt stress should be reviewed before converting preload into tightening torque.',
+        ],
+      },
+      {
+        heading: 'Preload is not the same as tightening torque',
+        paragraphs: [
+          'Preload is a force in the bolt and joint. Tightening torque is an installation input used to generate that force. Friction in the threads and under the head or nut means the same torque can produce different preload under different surface conditions.',
+          'After choosing a reasonable preload target, use realistic friction assumptions to estimate torque rather than selecting preload from a generic torque table in reverse.',
+        ],
+      },
+      {
+        heading: 'What this calculation does not prove',
+        paragraphs: [
+          'A preload check alone does not validate the complete bolted joint. External load distribution, fatigue, separation, embedding, relaxation, temperature, thread stripping and the strength of the clamped parts can all control the design.',
+          'Use DraftFit as a preliminary engineering calculator and validate critical joints with the applicable design method, material data and tightening procedure.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'o-ring-size-calculator-guide',
+    title: 'O-Ring Size Calculator Guide: ID, Cross Section, Stretch & Groove Fit',
+    description:
+      'Learn how O-ring inside diameter and cross section affect stretch, squeeze and groove fit, and how to use a groove calculator without treating nominal size as the whole design.',
+    eyebrow: 'Sealing',
+    keywords: [
+      'o ring size calculator',
+      'o-ring size calculator',
+      'o ring calculation',
+      'o ring ID calculator',
+      'o ring cross section',
+    ],
+    calculatorHref: '/calculators/o-ring-groove-calculator',
+    calculatorLabel: 'Open the O-Ring groove calculator',
+    standardSlugs: ['iso-3601'],
+    sections: [
+      {
+        heading: 'Quick answer: the two dimensions that define an O-ring size',
+        paragraphs: [
+          'An O-ring is primarily described by its inside diameter and cross-sectional diameter. Those two dimensions define the free ring, but they do not by themselves prove that the ring will work in a particular groove.',
+          'Once installed, the design must also consider how much the ring stretches or compresses circumferentially, how much its cross section is squeezed, and how much of the available gland volume it occupies.',
+        ],
+      },
+      {
+        heading: 'Inside diameter controls circumferential fit',
+        paragraphs: [
+          'The free inside diameter determines how the O-ring fits around a piston, shaft or other locating diameter. If the installation diameter is larger than the free inside diameter, the ring is stretched. Other gland arrangements can place the ring in circumferential compression instead.',
+          'Excessive stretch changes the installed cross section and can influence squeeze and gland fill, so size selection should not be separated from the groove calculation.',
+        ],
+      },
+      {
+        heading: 'Cross section controls squeeze and groove proportions',
+        paragraphs: [
+          'The cross-sectional diameter is the dimension compressed by the gland depth. It therefore has a direct effect on squeeze percentage and on the groove depth and width required to provide appropriate space for the installed seal.',
+          'Two O-rings with similar inside diameter but different cross section are not interchangeable without reviewing the gland geometry.',
+        ],
+      },
+      {
+        heading: 'Use size, squeeze, stretch and gland fill together',
+        paragraphs: [
+          'A useful O-ring calculation checks the installed geometry as a system. Squeeze that looks reasonable in isolation can still be problematic if stretch is excessive or if the gland is too full to accommodate the seal, tolerances and thermal or fluid-related volume changes.',
+        ],
+        bullets: [
+          'Start from the actual O-ring ID and cross section.',
+          'Define the installation diameter and groove geometry.',
+          'Review squeeze percentage.',
+          'Review circumferential stretch or compression.',
+          'Review gland fill and extrusion conditions separately.',
+        ],
+      },
+      {
+        heading: 'Metric and AS568 nominal sizes',
+        paragraphs: [
+          'Named metric or AS568 sizes are convenient starting points, but the engineering check still uses the actual nominal dimensions and the application geometry. A size designation does not replace tolerance, material, pressure and duty checks.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'how-to-choose-o-ring-size',
+    title: 'How to Choose an O-Ring Size for a Groove',
+    description:
+      'A practical workflow for choosing O-ring inside diameter and cross section from groove geometry, then checking squeeze, stretch, gland fill and application constraints.',
+    eyebrow: 'Sealing',
+    keywords: [
+      'how to choose o ring size',
+      'o ring sizing',
+      'o ring groove size',
+      'choose o ring for groove',
+      'o ring size selection',
+    ],
+    calculatorHref: '/calculators/o-ring-groove-calculator',
+    calculatorLabel: 'Check the selected O-Ring in the groove calculator',
+    standardSlugs: ['iso-3601'],
+    sections: [
+      {
+        heading: 'Start with the application, not only the O-ring catalogue',
+        paragraphs: [
+          'Choosing an O-ring begins with the sealing arrangement: radial or axial, static or dynamic, internal or external pressure, available hardware space and the diameters that locate the seal. Those conditions determine which ring dimensions can be installed with sensible squeeze and circumferential fit.',
+          'A catalogue size that physically fits into the available space is only a candidate. The installed geometry still needs to be checked.',
+        ],
+      },
+      {
+        heading: 'Step 1: choose a practical cross section',
+        paragraphs: [
+          'Cross section strongly influences gland depth, groove width, squeeze tolerance and the amount of seal material that must fit inside the gland. Start with a section that is compatible with the available hardware envelope and the application type.',
+          'Do not scale one groove proportion blindly to a different cross section because tolerances and application constraints do not always scale linearly.',
+        ],
+      },
+      {
+        heading: 'Step 2: choose inside diameter from the locating diameter',
+        paragraphs: [
+          'Select an inside diameter that produces an appropriate installed circumferential condition on the locating diameter. For many radial arrangements, this means checking the percentage stretch rather than simply choosing the nearest nominal ID.',
+          'The installed ID also interacts with the effective cross section, so review the complete geometry after the ring is placed on the hardware.',
+        ],
+      },
+      {
+        heading: 'Step 3: calculate squeeze and gland fill',
+        paragraphs: [
+          'Use the groove depth to calculate nominal squeeze and the groove area to estimate gland fill. Both should be reviewed with tolerances because the worst-case assembled geometry can differ from the nominal result.',
+          'A groove that produces a plausible squeeze percentage can still be unsuitable if gland fill is excessive or if there is insufficient allowance for tolerances and operating effects.',
+        ],
+      },
+      {
+        heading: 'Step 4: check the conditions the size calculator cannot decide for you',
+        paragraphs: [
+          'Pressure, extrusion gap, temperature, fluid compatibility, elastomer hardness, surface finish, lubrication and dynamic speed can all change the acceptable seal design. Backup rings may also be required in pressure conditions where extrusion risk is significant.',
+          'Use the sizing calculation to screen the geometry, then validate the material and operating limits for the real application.',
+        ],
+      },
+      {
+        heading: 'FAQ: can I choose the nearest O-ring size and adjust the groove?',
+        paragraphs: [
+          'Sometimes the hardware is designed around a preferred standard O-ring, and sometimes the available groove geometry constrains the seal choice. Either workflow can be practical, but the final combination should still be checked for squeeze, circumferential fit, gland fill and operating conditions rather than accepted from nominal dimensions alone.',
+        ],
+      },
+    ],
+  },
 ];
 
 export const STANDARDS: StandardEntry[] = [
@@ -803,7 +1060,7 @@ export const STANDARDS: StandardEntry[] = [
       'ISO 273:1979 was reviewed and confirmed in 2024 and remains current.',
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Metric Thread & Bolt Calculator',
-    guideSlugs: ['metric-bolt-torque-8-8-vs-10-9-vs-12-9', 'bolt-preload-vs-torque', 'm10-bolt-torque-guide'],
+    guideSlugs: ['iso-273-clearance-hole-sizes', 'metric-bolt-torque-8-8-vs-10-9-vs-12-9', 'bolt-preload-vs-torque', 'm10-bolt-torque-guide'],
     sections: [
       {
         heading: 'What it specifies',
