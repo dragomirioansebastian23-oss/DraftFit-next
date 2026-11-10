@@ -386,7 +386,7 @@ export function EngineeringReportHeader({
       <div className="flex items-end justify-between gap-4">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.2em]">DraftFit</p>
-          <h1 className="mt-1 text-2xl font-black">{content.title}</h1>
+          <h2 className="mt-1 text-2xl font-black">{content.title}</h2>
           <p className="mt-1 text-xs">{ui.preliminary}</p>
         </div>
         <div className="text-right text-xs">
