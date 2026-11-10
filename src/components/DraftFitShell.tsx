@@ -28,7 +28,7 @@ const TRANSLATIONS = {
     heroEyebrow: 'DraftFit engineering platform',
     heroTitle: 'Mechanical engineering tools, rebuilt for the web.',
     heroText:
-      'The Next.js foundation is ready. All five engineering calculators are now available on dedicated routes.',
+      'Calculate fits, O-ring grooves, GD&T, metric threads, bolt preload and parallel keys with practical engineering tools built for fast design checks.',
     status: 'Calculators online',
     allCalculators: 'Browse all calculators',
     toolsHeading: 'Mechanical engineering calculators',
@@ -83,7 +83,7 @@ const TRANSLATIONS = {
     heroEyebrow: 'Platformă inginerească DraftFit',
     heroTitle: 'Instrumente de inginerie mecanică, reconstruite pentru web.',
     heroText:
-      'Fundația Next.js este pregătită. Toate cele cinci calculatoare inginerești sunt acum disponibile pe rute dedicate.',
+      'Calculează ajustaje, canale O-Ring, GD&T, filete metrice, prestrângerea șuruburilor și pene paralele cu instrumente practice pentru verificări rapide de proiectare.',
     status: 'Calculatoare active',
     allCalculators: 'Vezi toate calculatoarele',
     toolsHeading: 'Calculatoare pentru inginerie mecanică',
