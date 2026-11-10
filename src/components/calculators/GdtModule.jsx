@@ -2323,6 +2323,100 @@ export default function GdtModule({
 
 
           {/* =================================================
+              V2 VISUAL INTERPRETATION
+              ================================================= */}
+
+          <section
+            className={`
+              mt-6
+              border
+              p-4
+              sm:p-5
+              ${ui.subCard}
+            `}
+          >
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <div className="text-[10px] font-black uppercase tracking-[0.16em] text-violet-500">
+                  {lang === 'ro' ? 'Vizualizare control' : 'Control visualization'}
+                </div>
+                <h3 className={`mt-1 text-lg font-black ${ui.titleText}`}>
+                  {lang === 'ro'
+                    ? 'Simbol + zonă + logică datum'
+                    : 'Symbol + zone + datum logic'}
+                </h3>
+              </div>
+
+              <span className="inline-flex rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-blue-500">
+                {standard.shortLabel}
+              </span>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[220px_minmax(0,1fr)]">
+              <div className="flex min-h-52 flex-col items-center justify-center rounded-xl border border-violet-500/20 bg-violet-500/5 p-5 text-center">
+                <div className="text-7xl font-black leading-none text-violet-500">
+                  {gdtObj.icon}
+                </div>
+                <div className={`mt-4 text-base font-black ${ui.titleText}`}>
+                  {gdtData.name}
+                </div>
+                <div className={`mt-2 text-[10px] font-black uppercase tracking-wider ${ui.subText}`}>
+                  {t.categories[currentCategory]}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className={`rounded-xl border p-4 ${ui.card}`}>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                    <div>
+                      <span className={`text-[10px] font-black uppercase tracking-wider ${ui.subText}`}>
+                        {lang === 'ro' ? 'Tip zonă' : 'Zone type'}
+                      </span>
+                      <p className={`mt-1 text-sm font-black ${ui.titleText}`}>
+                        {meta.toleranceZoneType}
+                      </p>
+                    </div>
+                    <div>
+                      <span className={`text-[10px] font-black uppercase tracking-wider ${ui.subText}`}>
+                        Datum
+                      </span>
+                      <p className={`mt-1 text-sm font-black ${meta.datum === 'required' ? 'text-cyan-500' : ui.titleText}`}>
+                        {datumLabel}
+                      </p>
+                    </div>
+                    <div>
+                      <span className={`text-[10px] font-black uppercase tracking-wider ${ui.subText}`}>
+                        {lang === 'ro' ? 'Zonă Ø' : 'Diameter zone'}
+                      </span>
+                      <p className={`mt-1 text-sm font-black ${ui.titleText}`}>
+                        {meta.diameterZone
+                          ? (lang === 'ro' ? 'DA' : 'YES')
+                          : (lang === 'ro' ? 'NU' : 'NO')}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`rounded-xl border p-4 ${ui.card}`}>
+                  <div className="text-[10px] font-black uppercase tracking-[0.16em] text-violet-500">
+                    {t.toleranceZone}
+                  </div>
+                  <p className={`mt-2 text-sm leading-6 ${ui.bodyText}`}>
+                    {gdtData.zone}
+                  </p>
+                </div>
+
+                <FeatureControlFrame
+                  gdtObj={gdtObj}
+                  meta={meta}
+                  isDark={isDark}
+                />
+              </div>
+            </div>
+          </section>
+
+
+          {/* =================================================
               STANDARD WARNING
               ================================================= */}
 
