@@ -2032,6 +2032,146 @@ export default function KeysModule({
 
 
             {/* ===============================================
+                V2 VISUAL SUMMARY
+                =============================================== */}
+
+            <section
+              className={`
+                border
+                overflow-hidden
+                ${ui.card}
+              `}
+            >
+              <div className="p-5 sm:p-7">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <span className={`block text-[10px] font-black uppercase tracking-[0.18em] ${ui.subText}`}>
+                      {lang === 'ro' ? 'Traseu de sarcină' : 'Load path'}
+                    </span>
+                    <h2 className={`mt-1 text-2xl font-black sm:text-3xl ${ui.titleText}`}>
+                      {key.b} × {key.h} × {selectedLength} mm
+                    </h2>
+                    <p className={`mt-2 max-w-2xl text-sm leading-6 ${ui.subText}`}>
+                      {lang === 'ro'
+                        ? 'Vezi secțiunea DIN selectată împreună cu tensiunea de forfecare și presiunea de contact.'
+                        : 'See the selected DIN section together with key shear and flank contact pressure.'}
+                    </p>
+                  </div>
+
+                  <span
+                    className={`
+                      inline-flex
+                      border
+                      px-3
+                      py-1.5
+                      text-xs
+                      font-black
+                      uppercase
+                      tracking-widest
+                      ${calculation.safe
+                        ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-500'
+                        : 'border-rose-500/30 bg-rose-500/10 text-rose-500'}
+                    `}
+                  >
+                    {calculation.safe ? t.safeTag : t.overloadTag}
+                  </span>
+                </div>
+
+                <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+                  <div className={`border p-4 ${ui.subCard}`}>
+                    <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.subText}`}>
+                      {t.keyDims}
+                    </span>
+                    <strong className="mt-2 block font-mono text-lg text-emerald-500">
+                      {key.b} × {key.h} mm
+                    </strong>
+                  </div>
+                  <div className={`border p-4 ${ui.subCard}`}>
+                    <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.subText}`}>
+                      {t.shearActual}
+                    </span>
+                    <strong className="mt-2 block font-mono text-lg text-cyan-500">
+                      {fmt(calculation.shearStress, 1)} MPa
+                    </strong>
+                  </div>
+                  <div className={`border p-4 ${ui.subCard}`}>
+                    <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.subText}`}>
+                      {t.pressureActual}
+                    </span>
+                    <strong className="mt-2 block font-mono text-lg text-amber-500">
+                      {fmt(calculation.contactPressure, 1)} MPa
+                    </strong>
+                  </div>
+                  <div className={`border p-4 ${ui.subCard}`}>
+                    <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.subText}`}>
+                      {t.recommendedLength}
+                    </span>
+                    <strong className={`mt-2 block font-mono text-lg ${ui.titleText}`}>
+                      {calculation.recommendedLength
+                        ? `${calculation.recommendedLength} mm`
+                        : '> 500 mm'}
+                    </strong>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,0.95fr)]">
+                  <div className={`border p-4 sm:p-5 ${ui.subCard}`}>
+                    <div className="mb-4">
+                      <div className="text-[10px] font-black uppercase tracking-[0.16em] text-emerald-500">
+                        {t.svgTitle}
+                      </div>
+                      <div className={`mt-1 text-sm font-bold ${ui.titleText}`}>
+                        {lang === 'ro' ? 'Arbore → pană → butuc' : 'Shaft → key → hub'}
+                      </div>
+                    </div>
+
+                    <KeyCrossSection
+                      shaftD={shaftD}
+                      keyData={key}
+                      isDark={isDark}
+                      label={t.svgKey}
+                    />
+                  </div>
+
+                  <div className={`border p-4 sm:p-5 ${ui.subCard}`}>
+                    <div className="text-[10px] font-black uppercase tracking-[0.16em] text-amber-500">
+                      {lang === 'ro' ? 'Verificare rapidă' : 'Quick check'}
+                    </div>
+                    <dl className="mt-4 space-y-3 text-sm">
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.governing}</dt>
+                        <dd className={`font-black ${ui.titleText}`}>
+                          {calculation.governingCriterion === 'pressure'
+                            ? t.pressure
+                            : t.shear}
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.effectiveLength}</dt>
+                        <dd className={`font-mono font-black ${ui.titleText}`}>
+                          {fmt(calculation.effectiveLength, 1)} mm
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.pressureUtil}</dt>
+                        <dd className={`font-mono font-black ${calculation.contactPressure <= pAdm ? 'text-emerald-500' : 'text-rose-500'}`}>
+                          {fmtPercent(calculation.pressureUtilization)}
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.shearUtil}</dt>
+                        <dd className={`font-mono font-black ${calculation.shearStress <= tauAdm ? 'text-emerald-500' : 'text-rose-500'}`}>
+                          {fmtPercent(calculation.shearUtilization)}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+
+            {/* ===============================================
                 MAIN RESULT
                 =============================================== */}
 
