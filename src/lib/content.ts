@@ -1035,9 +1035,9 @@ export const STANDARDS: StandardEntry[] = [
   },
   {
     slug: 'iso-1101',
-    title: 'ISO 1101 — Geometrical Tolerancing',
+    title: 'ISO 1101:2017 — Geometrical Tolerancing Guide',
     description:
-      'DraftFit reference page for ISO 1101 geometrical tolerancing concepts, symbols and interpretation.',
+      'ISO 1101 reference for GPS geometrical tolerancing, including form, orientation, location and run-out controls, symbols and interpretation.',
     reference: 'ISO 1101:2017',
     statusNote:
       'ISO 1101:2017 remains the current published edition on the ISO catalogue. Check the edition specified on the drawing.',
@@ -1046,15 +1046,44 @@ export const STANDARDS: StandardEntry[] = [
     guideSlugs: ['gdt-position-tolerance-explained-examples', 'gdt-position-vs-concentricity'],
     sections: [
       {
-        heading: 'Role in GPS',
+        heading: 'What ISO 1101 covers',
         paragraphs: [
-          'ISO 1101 defines the symbol language and interpretation rules for geometrical specification of workpieces, covering form, orientation, location and run-out tolerances.',
+          'ISO 1101 is a Geometrical Product Specifications (GPS) standard that defines the symbol language and interpretation rules used to specify geometrical tolerances on workpieces.',
+          'Its scope covers geometrical tolerancing for form, orientation, location and run-out. These controls describe the permitted geometric variation of features and the tolerance zones used to evaluate them.',
         ],
       },
       {
-        heading: 'Use with related standards',
+        heading: 'Form, orientation, location and run-out',
         paragraphs: [
-          'GD&T/GPS requirements rarely live in one document alone. Datum systems, modifiers, drawing practices and verification can involve additional standards, so the drawing and project specification should control the complete interpretation.',
+          'Form controls limit the geometry of an individual feature without requiring a datum reference. Orientation controls relate a feature to a specified direction or datum framework. Location controls constrain where a feature may lie relative to theoretically exact geometry and datum references. Run-out controls evaluate variation during rotation relative to a datum axis.',
+          'The exact interpretation depends on the tolerance symbol, the indicated feature, the tolerance-zone definition, datum references and any applicable modifiers shown in the specification.',
+        ],
+      },
+      {
+        heading: 'Symbols and tolerance indications',
+        paragraphs: [
+          'ISO 1101 defines standardized graphical indications used in geometrical tolerancing. The tolerance indication communicates the controlled characteristic together with the tolerance value and, where required, additional zone, feature, direction or datum information.',
+          'DraftFit provides a practical GD&T reference interface for common concepts and symbols, but it does not reproduce the controlled symbol tables or the complete normative rule set from ISO 1101.',
+        ],
+      },
+      {
+        heading: 'Datum references and related GPS standards',
+        paragraphs: [
+          'Many geometrical specifications depend on datum systems, but datum definition is not an isolated ISO 1101 topic. ISO GPS uses related standards for datum concepts, feature relationships and other specification rules, so the complete drawing interpretation may require more than one standard.',
+          'Always read the drawing as a complete specification and use the edition and related standards required by the project rather than combining rules from different systems or editions.',
+        ],
+      },
+      {
+        heading: 'ISO 1101 vs ASME Y14.5',
+        paragraphs: [
+          'ISO 1101 belongs to the ISO GPS system, while ASME Y14.5 is a separate dimensioning and tolerancing system. Similar symbols do not guarantee identical interpretation, terminology or modifier rules.',
+          'DraftFit therefore keeps ISO and ASME reference modes separate instead of silently treating the two systems as interchangeable.',
+        ],
+      },
+      {
+        heading: 'What this reference page does not replace',
+        paragraphs: [
+          'This page is an orientation aid, not a substitute for the controlled ISO 1101 document. For released drawings, inspection planning, contractual requirements or compliance work, use the standard edition specified by the project.',
         ],
       },
     ],
