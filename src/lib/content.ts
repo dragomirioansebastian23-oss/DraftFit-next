@@ -729,16 +729,16 @@ export const GUIDES: GuideEntry[] = [
 
   {
     slug: 'iso-273-clearance-hole-sizes',
-    title: 'ISO 273 Clearance Hole Sizes for Metric Bolts: Chart & Guide',
+    title: 'Metric Bolt Clearance Hole Sizes: Fine, Medium & Coarse Guide',
     description:
-      'Understand ISO 273 clearance-hole series for metric bolts and screws, when fine, medium or coarse clearance is appropriate, and how to use the DraftFit thread and bolt calculator.',
+      'Learn how fine, medium and coarse metric bolt clearance-hole series differ, when each is appropriate, and how to use them in the DraftFit thread and bolt calculator.',
     eyebrow: 'Threads & fasteners',
     keywords: [
-      'ISO 273',
-      'ISO 273 clearance hole sizes',
       'metric bolt clearance hole chart',
       'bolt clearance hole size',
       'screw clearance hole',
+      'metric clearance hole sizes',
+      'fine medium coarse clearance hole',
     ],
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Open the metric thread and bolt calculator',
@@ -1052,26 +1052,41 @@ export const STANDARDS: StandardEntry[] = [
   },
   {
     slug: 'iso-273',
-    title: 'ISO 273 — Clearance Holes for Bolts and Screws',
+    title: 'ISO 273 Clearance Hole Sizes — Metric Bolts & Screws',
     description:
-      'Reference overview of ISO 273 clearance-hole series and how DraftFit uses them in the metric thread and bolt tool.',
+      'ISO 273:1979 reference for metric bolt and screw clearance-hole sizes, including fine, medium and coarse series and how to use them in DraftFit.',
     reference: 'ISO 273:1979',
     statusNote:
-      'ISO 273:1979 was reviewed and confirmed in 2024 and remains current.',
+      'ISO 273:1979 was reviewed and confirmed in 2024 and remains current. ISO also lists corrected versions from 1992.',
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Metric Thread & Bolt Calculator',
     guideSlugs: ['iso-273-clearance-hole-sizes', 'metric-bolt-torque-8-8-vs-10-9-vs-12-9', 'bolt-preload-vs-torque', 'm10-bolt-torque-guide'],
     sections: [
       {
-        heading: 'What it specifies',
+        heading: 'What ISO 273 specifies',
         paragraphs: [
-          'ISO 273 specifies general-purpose clearance-hole diameters for bolts and screws using fine, medium and coarse series across a broad range of metric thread sizes.',
+          'ISO 273 specifies clearance-hole diameters for bolts and screws in general-purpose applications. The standard tabulates fine, medium and coarse clearance-hole series for metric thread diameters from 1 mm up to 150 mm.',
+          'The standard is about clearance-hole diameter selection. It does not turn the clearance hole into a threaded hole or define a tap-drill size.',
         ],
       },
       {
-        heading: 'DraftFit behavior',
+        heading: 'Fine, medium and coarse clearance series',
         paragraphs: [
-          'DraftFit treats fine, medium and coarse clearance-hole series as explicit selections rather than inventing unrelated tolerance grades for the hole diameter.',
+          'The fine, medium and coarse series provide different levels of assembly clearance around the fastener. The selected series should match the locating, manufacturing and assembly needs of the joint rather than being chosen from nominal thread diameter alone.',
+          'For special applications, ISO states that the hole size should be selected from the actual design requirements rather than assumed from the general-purpose series.',
+        ],
+      },
+      {
+        heading: 'How DraftFit uses ISO 273',
+        paragraphs: [
+          'DraftFit exposes the fine, medium and coarse series as explicit clearance-hole selections inside the metric thread and bolt workflow. This keeps clearance-hole sizing separate from thread geometry, tap-drill estimates and preload or torque calculations.',
+          'Use the selected clearance-hole diameter as one part of the joint definition, then check the surrounding geometry, bearing area, washers and assembly tolerances separately.',
+        ],
+      },
+      {
+        heading: 'What this reference page does not replace',
+        paragraphs: [
+          'This page summarizes the role and scope of ISO 273 without reproducing the controlled standard. For production drawings, procurement or compliance work, use the edition required by the project and the official standard text.',
         ],
       },
     ],
