@@ -31,18 +31,18 @@ export type StandardEntry = {
 export const GUIDES: GuideEntry[] = [
   {
     slug: 'h7-g6-vs-h7-h6-vs-h7-k6',
-    title: 'H7/g6 vs H7/h6 vs H7/k6: ISO 286 Fits Explained',
+    title: 'H7/g6 vs H7/h6 vs H7/k6: Fit Comparison',
     description:
-      'Compare H7/g6, H7/h6 and H7/k6 fits, see how their tolerance zones change clearance and interference, and choose a better starting point for shaft-hole design.',
+      'Compare H7/g6, H7/h6 and H7/k6 at the same nominal size and see how shaft-zone position changes clearance and transition behavior.',
     eyebrow: 'Fits & tolerances',
     keywords: [
       'H7 g6 vs H7 h6 vs H7 k6',
-      'H7/g6 fit',
-      'H7/h6 fit',
-      'H7/k6 fit',
-      'ISO 286 fits',
-      'clearance fit',
-      'transition fit',
+      'H7 g6 vs H7 h6',
+      'H7 h6 vs H7 k6',
+      'g6 vs h7 tolerance',
+      'h6 vs h7 tolerance',
+      'ISO 286 fit comparison',
+      'clearance vs transition fit',
     ],
     calculatorHref: '/calculators/iso-286-fit-calculator',
     calculatorLabel: 'Compare the fits in the ISO 286 calculator',
@@ -118,38 +118,58 @@ export const GUIDES: GuideEntry[] = [
   },
   {
     slug: 'h7-g6-fit-explained',
-    title: 'H7/g6 Fit Explained: Limits, Clearance and Typical Use',
+    title: 'H7/g6 Fit: ISO 286 Clearance, Limits & Calculator',
     description:
-      'Understand how an H7/g6 ISO fit is built from hole and shaft tolerance zones, how clearance is calculated and when this fit is useful.',
+      'Learn what H7/g6 means, why it produces clearance in the supported ISO 286 ranges, and how to calculate hole, shaft and clearance limits.',
     eyebrow: 'Fits & tolerances',
-    keywords: ['H7 g6 fit', 'H7/g6 tolerance', 'H7 g6 clearance', 'ISO 286 fit'],
+    keywords: ['H7/g6', 'H7 g6', 'H7/g6 fit', 'H7 g6 fit', 'H7/g6 tolerance', 'H7 g6 clearance', 'H7/g6 clearance'],
     calculatorHref: '/calculators/iso-286-fit-calculator',
-    calculatorLabel: 'Open ISO 286 Fit Calculator',
+    calculatorLabel: 'Calculate H7/g6 limits and clearance',
     standardSlugs: ['iso-286'],
     sections: [
       {
         heading: 'What H7/g6 means',
         paragraphs: [
-          'H7/g6 combines a hole tolerance zone H7 with a shaft tolerance zone g6. In the ISO hole-basis system, an H hole has zero lower deviation, while a g shaft sits below the basic size.',
-          'That geometry normally produces a clearance fit. The actual minimum and maximum clearance depend on the nominal diameter because the ISO tolerance width changes with the dimensional step.',
+          'H7/g6 is an ISO 286 hole-and-shaft fit designation. H7 describes the hole tolerance zone and g6 describes the shaft tolerance zone. The capital letter belongs to the hole; the lowercase letter belongs to the shaft.',
+          'In the hole-basis system, the H hole starts at the basic size while the g shaft tolerance zone lies below the basic size. In DraftFit’s supported ISO 286 data, that separation produces a clearance fit across the permitted limit combinations.',
         ],
       },
       {
-        heading: 'How clearance is calculated',
+        heading: 'Why H7/g6 is a clearance fit',
         paragraphs: [
-          'Minimum clearance is the smallest hole limit minus the largest shaft limit. Maximum clearance is the largest hole limit minus the smallest shaft limit.',
-          'For a specific nominal diameter, calculate the four limit sizes first. Do not reuse a tolerance value from a different diameter range.',
+          'A clearance fit exists when the smallest permissible hole is still at least as large as the largest permissible shaft. For H7/g6 in the supported DraftFit ranges, the H7 and g6 tolerance zones remain separated so the shaft does not cross into dimensional interference.',
+          'The amount of clearance is not one fixed H7/g6 value. It changes with nominal diameter because the applicable ISO tolerance widths and fundamental deviations depend on the dimensional step.',
         ],
       },
       {
-        heading: 'When H7/g6 is useful',
+        heading: 'How to calculate H7/g6 clearance',
         paragraphs: [
-          'H7/g6 is commonly considered when a controlled running or locating clearance is wanted without intentional interference. The correct fit still depends on load, speed, lubrication, temperature, manufacturing capability and assembly requirements.',
+          'First calculate the H7 hole lower and upper limits and the g6 shaft lower and upper limits for the actual nominal diameter. Minimum clearance is the smallest hole limit minus the largest shaft limit. Maximum clearance is the largest hole limit minus the smallest shaft limit.',
+          'Use all four limit dimensions for the selected size. A clearance result copied from another nominal diameter is not a reusable H7/g6 value.',
+        ],
+        bullets: [
+          'Minimum clearance = minimum hole − maximum shaft.',
+          'Maximum clearance = maximum hole − minimum shaft.',
+          'Use the actual nominal diameter before comparing limits.',
+        ],
+      },
+      {
+        heading: 'H7/g6 compared with H7/h6 and H7/k6',
+        paragraphs: [
+          'Moving from g6 to h6 shifts the shaft tolerance zone upward and reduces the guaranteed clearance. Moving farther toward k6 can cross into transition-fit behavior, where the manufactured pair may have either clearance or interference.',
+          'Use the separate H7/g6 vs H7/h6 vs H7/k6 comparison when the design decision is between these three shaft zones rather than an H7/g6 calculation alone.',
+        ],
+      },
+      {
+        heading: 'When H7/g6 is a useful starting point',
+        paragraphs: [
+          'H7/g6 can be a useful starting point when guaranteed dimensional clearance, free assembly or controlled relative movement is required. The designation alone does not determine whether the fit is suitable for a particular machine.',
+          'Load, speed, lubrication, temperature, contamination, surface finish, manufacturing capability and required positional accuracy can all affect the final fit selection.',
         ],
         bullets: [
           'Use the calculator for the exact nominal size.',
           'Check thermal growth where temperature changes are meaningful.',
-          'Treat fit selection as a design decision, not only a table lookup.',
+          'Review function and manufacturing capability before releasing the fit.',
         ],
       },
     ],
