@@ -2709,6 +2709,19 @@ export default function IsoModule({
             )}
 
 
+            {mode === 'fit' && (
+              <ToleranceZoneDiagram
+                hole={calculation.hole}
+                shaft={calculation.shaft}
+                holeLabel={`${holeLetter}${holeGrade}`}
+                shaftLabel={`${shaftLetter}${shaftGrade}`}
+                fitType={calculation.fit.type}
+                lang={lang}
+                isDark={isDark}
+              />
+            )}
+
+
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 print:hidden">
 <ShareCalculationButton
           params={{
@@ -4006,6 +4019,154 @@ function LimitCard({
 
       </div>
 
+    </div>
+  );
+}
+
+
+function ToleranceZoneDiagram({
+  hole,
+  shaft,
+  holeLabel,
+  shaftLabel,
+  fitType,
+  lang,
+  isDark
+}) {
+  const allValues = [
+    hole.lowerDeviation,
+    hole.upperDeviation,
+    shaft.lowerDeviation,
+    shaft.upperDeviation,
+    0
+  ];
+
+  const rawMin = Math.min(...allValues);
+  const rawMax = Math.max(...allValues);
+  const span = Math.max(rawMax - rawMin, 1);
+  const pad = Math.max(span * 0.18, 2);
+  const min = rawMin - pad;
+  const max = rawMax + pad;
+  const total = max - min;
+
+  const x = (value) =>
+    ((value - min) / total) * 100;
+
+  const bar = (lower, upper) => ({
+    left: `${x(lower)}%`,
+    width: `${Math.max(x(upper) - x(lower), 1.5)}%`
+  });
+
+  const zero = x(0);
+  const holeBar = bar(hole.lowerDeviation, hole.upperDeviation);
+  const shaftBar = bar(shaft.lowerDeviation, shaft.upperDeviation);
+
+  const surface = isDark
+    ? 'bg-zinc-950 border-zinc-800'
+    : 'bg-zinc-50 border-zinc-200';
+
+  const text = isDark ? 'text-zinc-100' : 'text-zinc-950';
+  const muted = isDark ? 'text-zinc-400' : 'text-zinc-600';
+
+  const fitCopy = fitType === 'clearance'
+    ? (lang === 'ro' ? 'Zone separate → joc garantat' : 'Separated zones → guaranteed clearance')
+    : fitType === 'interference'
+      ? (lang === 'ro' ? 'Zone suprapuse pentru strângere garantată' : 'Zone positioned for guaranteed interference')
+      : (lang === 'ro' ? 'Zona permite joc sau interferență' : 'Tolerance range allows clearance or interference');
+
+  return (
+    <section className={`border p-5 sm:p-7 ${surface}`}>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <div className="text-[10px] font-black uppercase tracking-[0.18em] text-orange-500">
+            {lang === 'ro' ? 'Vizualizare toleranțe' : 'Tolerance-zone view'}
+          </div>
+          <h3 className={`mt-1 text-lg font-black ${text}`}>
+            {lang === 'ro' ? 'Poziția față de dimensiunea de bază' : 'Position relative to basic size'}
+          </h3>
+        </div>
+        <div className={`text-xs font-semibold ${muted}`}>{fitCopy}</div>
+      </div>
+
+      <div className="mt-6 space-y-5">
+        <ToleranceTrack
+          label={`Hole ${holeLabel}`}
+          lower={hole.lowerDeviation}
+          upper={hole.upperDeviation}
+          style={holeBar}
+          zero={zero}
+          isDark={isDark}
+          kind="hole"
+          lang={lang}
+        />
+        <ToleranceTrack
+          label={`Shaft ${shaftLabel}`}
+          lower={shaft.lowerDeviation}
+          upper={shaft.upperDeviation}
+          style={shaftBar}
+          zero={zero}
+          isDark={isDark}
+          kind="shaft"
+          lang={lang}
+        />
+      </div>
+
+      <div className={`mt-5 flex items-center justify-between border-t pt-4 text-[10px] font-mono ${isDark ? 'border-zinc-800 text-zinc-500' : 'border-zinc-200 text-zinc-500'}`}>
+        <span>{Math.round(min)} µm</span>
+        <span className="font-black text-orange-500">
+          {lang === 'ro' ? '0 µm = dimensiunea de bază' : '0 µm = basic size'}
+        </span>
+        <span>+{Math.round(max)} µm</span>
+      </div>
+    </section>
+  );
+}
+
+function ToleranceTrack({
+  label,
+  lower,
+  upper,
+  style,
+  zero,
+  isDark,
+  kind,
+  lang
+}) {
+  const track = isDark ? 'bg-zinc-900 border-zinc-800' : 'bg-white border-zinc-300';
+  const text = isDark ? 'text-zinc-200' : 'text-zinc-800';
+  const barClass = kind === 'hole'
+    ? 'bg-sky-500/75 border-sky-400'
+    : 'bg-emerald-500/75 border-emerald-400';
+
+  const signed = (value) => value > 0 ? `+${value}` : `${value}`;
+
+  return (
+    <div>
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <span className={`text-xs font-black uppercase tracking-wider ${text}`}>{label}</span>
+        <span className="font-mono text-xs text-orange-500">
+          {signed(lower)} … {signed(upper)} µm
+        </span>
+      </div>
+
+      <div className={`relative h-12 overflow-hidden border ${track}`}>
+        <div
+          className="absolute inset-y-0 w-px bg-orange-500"
+          style={{ left: `${zero}%` }}
+          aria-hidden="true"
+        />
+        <div
+          className={`absolute top-2 h-8 border ${barClass}`}
+          style={style}
+          title={`${label}: ${signed(lower)} to ${signed(upper)} µm`}
+        >
+          <div className="flex h-full items-center justify-center px-2 text-[10px] font-black text-white">
+            {kind === 'hole'
+              ? (lang === 'ro' ? 'ALEZAJ' : 'HOLE')
+              : (lang === 'ro' ? 'ARBORE' : 'SHAFT')}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
