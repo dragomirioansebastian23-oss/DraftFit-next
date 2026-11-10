@@ -2092,6 +2092,149 @@ export default function ThreadsModule({
       >
 
         {/* ===================================================
+            V2 VISUAL SUMMARY
+            =================================================== */}
+
+        <section
+          className={`
+            border
+            overflow-hidden
+            ${ui.card}
+          `}
+        >
+          <div className="p-5 sm:p-7">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <span className={`block text-[10px] font-black uppercase tracking-[0.18em] ${ui.sub}`}>
+                  {lang === 'ro' ? 'Vizualizare filet' : 'Live thread profile'}
+                </span>
+                <h2 className={`mt-1 text-2xl font-black sm:text-3xl ${ui.title}`}>
+                  M{threadD} × {threadP}
+                </h2>
+                <p className={`mt-2 max-w-2xl text-sm leading-6 ${ui.sub}`}>
+                  {lang === 'ro'
+                    ? 'Geometria filetului, prestrângerea și cuplul sunt afișate împreună pentru interpretare rapidă.'
+                    : 'Thread geometry, target preload and tightening torque are shown together for faster interpretation.'}
+                </p>
+              </div>
+
+              <div className="inline-flex border border-cyan-500/30 bg-cyan-500/10 px-3 py-1.5 text-xs font-black uppercase tracking-widest text-cyan-500">
+                {boltClass.id}
+              </div>
+            </div>
+
+            <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+              <div className={`border p-4 ${ui.subCard}`}>
+                <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.sub}`}>
+                  {t.targetPreload}
+                </span>
+                <strong className="mt-2 block font-mono text-lg text-emerald-500">
+                  {unitSystem === 'metric'
+                    ? formatQuantity(result.preload.targetPreload / 1000, 'forceKN', unitSystem)
+                    : formatQuantity(result.preload.targetPreload, 'forceN', unitSystem)}
+                </strong>
+              </div>
+
+              <div className={`border p-4 ${ui.subCard}`}>
+                <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.sub}`}>
+                  {t.totalTorque}
+                </span>
+                <strong className="mt-2 block font-mono text-lg text-amber-500">
+                  {formatQuantity(result.tightening.totalTorque, 'torque', unitSystem)}
+                </strong>
+              </div>
+
+              <div className={`border p-4 ${ui.subCard}`}>
+                <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.sub}`}>
+                  {t.stressArea}
+                </span>
+                <strong className={`mt-2 block font-mono text-lg ${ui.title}`}>
+                  {formatQuantity(result.geometry.As, 'area', unitSystem)}
+                </strong>
+              </div>
+
+              <div className={`border p-4 ${ui.subCard}`}>
+                <span className={`block text-[9px] font-black uppercase tracking-wider ${ui.sub}`}>
+                  {t.tapDrill}
+                </span>
+                <strong className="mt-2 block font-mono text-lg text-cyan-500">
+                  Ø{formatQuantity(result.tapDrill, 'length', unitSystem)}
+                </strong>
+              </div>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,0.95fr)]">
+              <div className={`border p-4 sm:p-5 ${ui.subCard}`}>
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <div className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-500">
+                      {lang === 'ro' ? 'Profil schematic' : 'Schematic profile'}
+                    </div>
+                    <div className={`mt-1 text-sm font-bold ${ui.title}`}>
+                      {lang === 'ro' ? 'Crestă · flanc · rădăcină · pas' : 'Crest · flank · root · pitch'}
+                    </div>
+                  </div>
+                  <span className={`text-[10px] font-mono ${ui.sub}`}>
+                    {lang === 'ro' ? 'Nu este la scară' : 'Not to scale'}
+                  </span>
+                </div>
+
+                <svg viewBox="0 0 760 220" className="h-48 w-full" role="img" aria-label="Metric thread profile schematic">
+                  <rect x="0" y="0" width="760" height="220" fill="transparent" />
+                  <line x1="30" y1="170" x2="730" y2="170" stroke="currentColor" strokeOpacity="0.25" strokeWidth="1" />
+                  <polyline
+                    points="40,150 90,70 140,150 190,70 240,150 290,70 340,150 390,70 440,150 490,70 540,150 590,70 640,150 690,70 720,120"
+                    fill="none"
+                    stroke="rgb(6 182 212)"
+                    strokeWidth="4"
+                    strokeLinejoin="round"
+                  />
+                  <line x1="90" y1="190" x2="190" y2="190" stroke="rgb(245 158 11)" strokeWidth="2" />
+                  <line x1="90" y1="182" x2="90" y2="198" stroke="rgb(245 158 11)" strokeWidth="2" />
+                  <line x1="190" y1="182" x2="190" y2="198" stroke="rgb(245 158 11)" strokeWidth="2" />
+                  <text x="140" y="212" textAnchor="middle" fill="currentColor" fontSize="12">
+                    P = {formatQuantity(threadP, 'length', unitSystem)}
+                  </text>
+                </svg>
+              </div>
+
+              <div className={`border p-4 sm:p-5 ${ui.subCard}`}>
+                <div className="text-[10px] font-black uppercase tracking-[0.16em] text-cyan-500">
+                  {lang === 'ro' ? 'Geometrie cheie' : 'Key geometry'}
+                </div>
+                <dl className="mt-4 space-y-3 text-sm">
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className={ui.sub}>{t.basicMajor}</dt>
+                    <dd className={`font-mono font-black ${ui.title}`}>
+                      Ø{formatQuantity(threadD, 'length', unitSystem)}
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className={ui.sub}>{t.pitchDia}</dt>
+                    <dd className={`font-mono font-black ${ui.title}`}>
+                      Ø{formatQuantity(result.geometry.d2, 'length', unitSystem)}
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className={ui.sub}>{t.minorDia}</dt>
+                    <dd className={`font-mono font-black ${ui.title}`}>
+                      Ø{formatQuantity(result.geometry.d3, 'length', unitSystem)}
+                    </dd>
+                  </div>
+                  <div className="flex items-center justify-between gap-4">
+                    <dt className={ui.sub}>{t.helixAngle}</dt>
+                    <dd className={`font-mono font-black ${ui.title}`}>
+                      {fmt(result.geometry.helixAngle * 180 / Math.PI, 2)}°
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* ===================================================
             HEADER
             =================================================== */}
 
