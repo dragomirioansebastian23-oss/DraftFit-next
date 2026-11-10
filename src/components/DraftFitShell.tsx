@@ -28,9 +28,39 @@ const TRANSLATIONS = {
     heroEyebrow: 'DraftFit engineering platform',
     heroTitle: 'Mechanical engineering tools, rebuilt for the web.',
     heroText:
-      'The Next.js foundation is ready. All five engineering calculators are now available on dedicated routes.',
+      'Calculate fits, O-ring grooves, GD&T, metric threads, bolt preload and parallel keys with practical engineering tools built for fast design checks.',
     status: 'Calculators online',
     allCalculators: 'Browse all calculators',
+    toolsHeading: 'Mechanical engineering calculators',
+    toolsIntro:
+      'DraftFit brings common mechanical design checks into one practical toolbox. Use the calculators for preliminary sizing, tolerance review and design decisions, then verify critical work against the standards and requirements that govern your project.',
+    tools: [
+      {
+        title: 'ISO 286 Fits',
+        href: '/calculators/iso-286-fit-calculator',
+        text: 'Calculate hole and shaft limits and see whether the selected fit gives clearance, transition or interference.',
+      },
+      {
+        title: 'O-Ring Grooves',
+        href: '/calculators/o-ring-groove-calculator',
+        text: 'Review groove geometry together with squeeze, stretch or compression, gland fill and preliminary extrusion-gap checks.',
+      },
+      {
+        title: 'GD&T Reference',
+        href: '/calculators/gdt-reference-calculator',
+        text: 'Work through common geometric tolerancing concepts, symbols and interpretation notes for ISO and ASME workflows.',
+      },
+      {
+        title: 'Metric Threads & Bolts',
+        href: '/calculators/metric-thread-bolt-calculator',
+        text: 'Check metric thread geometry, stress area, tap-drill estimates, clearance holes, preload and tightening torque.',
+      },
+      {
+        title: 'Parallel Keys',
+        href: '/calculators/parallel-key-calculator',
+        text: 'Select DIN 6885 key geometry and perform preliminary shear and bearing-pressure checks for shaft-hub connections.',
+      },
+    ],
   },
   ro: {
     brandTag: 'Engineering Toolkit',
@@ -53,9 +83,39 @@ const TRANSLATIONS = {
     heroEyebrow: 'Platformă inginerească DraftFit',
     heroTitle: 'Instrumente de inginerie mecanică, reconstruite pentru web.',
     heroText:
-      'Fundația Next.js este pregătită. Toate cele cinci calculatoare inginerești sunt acum disponibile pe rute dedicate.',
+      'Calculează ajustaje, canale O-Ring, GD&T, filete metrice, prestrângerea șuruburilor și pene paralele cu instrumente practice pentru verificări rapide de proiectare.',
     status: 'Calculatoare active',
     allCalculators: 'Vezi toate calculatoarele',
+    toolsHeading: 'Calculatoare pentru inginerie mecanică',
+    toolsIntro:
+      'DraftFit reunește verificări uzuale de proiectare mecanică într-un singur set practic de instrumente. Folosește calculatoarele pentru dimensionare preliminară, toleranțe și decizii de proiectare, apoi verifică aplicațiile critice conform standardelor și cerințelor proiectului.',
+    tools: [
+      {
+        title: 'Ajustaje ISO 286',
+        href: '/calculators/iso-286-fit-calculator',
+        text: 'Calculează limitele alezajului și arborelui și vezi dacă ajustajul selectat produce joc, tranziție sau interferență.',
+      },
+      {
+        title: 'Canale O-Ring',
+        href: '/calculators/o-ring-groove-calculator',
+        text: 'Verifică geometria canalului împreună cu squeeze, întinderea sau compresia, umplerea și verificări preliminare ale jocului de extrudare.',
+      },
+      {
+        title: 'Referință GD&T',
+        href: '/calculators/gdt-reference-calculator',
+        text: 'Parcurge concepte, simboluri și note de interpretare pentru toleranțe geometrice în fluxuri ISO și ASME.',
+      },
+      {
+        title: 'Filete metrice & șuruburi',
+        href: '/calculators/metric-thread-bolt-calculator',
+        text: 'Verifică geometria filetului, aria rezistentă, burghiul de tarodare, găurile de trecere, prestrângerea și cuplul.',
+      },
+      {
+        title: 'Pene paralele',
+        href: '/calculators/parallel-key-calculator',
+        text: 'Selectează geometria DIN 6885 și fă verificări preliminare la forfecare și presiune de contact pentru legături arbore-butuc.',
+      },
+    ],
   },
 } as const;
 
@@ -194,9 +254,9 @@ export default function DraftFitShell() {
                 {t.heroEyebrow}
               </p>
 
-              <h2 className="max-w-3xl text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
+              <h1 className="max-w-3xl text-3xl font-black tracking-tight sm:text-4xl md:text-5xl">
                 {t.heroTitle}
-              </h2>
+              </h1>
 
               <p className={`mt-3 max-w-2xl text-sm leading-6 sm:mt-5 sm:text-base sm:leading-7 ${muted}`}>
                 {t.heroText}
@@ -218,6 +278,31 @@ export default function DraftFitShell() {
             >
               <EngineeringGrid isDark={isDark} />
             </div>
+          </div>
+        </section>
+
+        <section className="mt-8">
+          <div className="max-w-3xl">
+            <h2 className="text-2xl font-black tracking-tight sm:text-3xl">{t.toolsHeading}</h2>
+            <p className={`mt-3 text-sm leading-6 sm:text-base sm:leading-7 ${muted}`}>
+              {t.toolsIntro}
+            </p>
+          </div>
+
+          <div className="mt-5 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {t.tools.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className={`border p-5 transition-colors hover:border-orange-500/70 ${card}`}
+              >
+                <h3 className="text-base font-black">{tool.title}</h3>
+                <p className={`mt-2 text-sm leading-6 ${muted}`}>{tool.text}</p>
+                <span className="mt-4 inline-block text-xs font-black uppercase tracking-[0.14em] text-orange-500">
+                  {lang === 'ro' ? 'Deschide calculatorul' : 'Open calculator'} →
+                </span>
+              </Link>
+            ))}
           </div>
         </section>
 
