@@ -275,11 +275,11 @@ export const GUIDES: GuideEntry[] = [
   },
   {
     slug: 'bolt-preload-vs-torque',
-    title: 'Torque to Preload: Bolt Preload vs Tightening Torque Explained',
+    title: 'Bolt Preload vs Torque: Friction & Tightening',
     description:
-      'Learn how tightening torque creates bolt preload, how preload is estimated, and why friction can change the clamp force produced by the same torque.',
+      'Understand how tightening torque creates preload, why friction changes the result, and why torque and clamp force are not one-to-one.',
     eyebrow: 'Threads & fasteners',
-    keywords: ['torque to preload', 'tightening torque to preload a bolt', 'bolt preload', 'bolt torque', 'tightening torque', 'preload vs torque'],
+    keywords: ['torque to preload', 'tightening torque to preload a bolt', 'bolt torque', 'tightening torque', 'preload vs torque', 'torque preload relationship'],
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Open Thread & Bolt Calculator',
     standardSlugs: ['iso-898-1', 'iso-273'],
@@ -793,59 +793,68 @@ export const GUIDES: GuideEntry[] = [
   },
   {
     slug: 'bolt-preload-calculation',
-    title: 'Bolt Preload Calculation Explained: Formula, Stress & Calculator',
+    title: 'Bolt Preload Calculation: Formula & Calculator',
     description:
-      'Learn what bolt preload is, how a target preload is estimated from bolt strength, how stress area matters, and how to check preload before estimating tightening torque.',
+      'Calculate bolt preload from proof stress, tensile stress area and a selected preload fraction, then review stress before estimating torque.',
     eyebrow: 'Threads & fasteners',
     keywords: [
+      'bolt preload',
       'bolt preload calculation',
       'bolt preload calculator',
       'bolt preload formula',
+      'bolt preload equation',
       'bolt clamp force calculation',
-      'preload from bolt strength',
     ],
     calculatorHref: '/calculators/metric-thread-bolt-calculator',
     calculatorLabel: 'Calculate bolt preload and tightening torque',
     standardSlugs: ['iso-898-1'],
     sections: [
       {
-        heading: 'Quick answer: what bolt preload means',
+        heading: 'Quick answer: how DraftFit calculates bolt preload',
         paragraphs: [
-          'Bolt preload is the tensile force introduced into a fastener during tightening. That tensile force creates clamp force in the joint before external service loads are applied.',
-          'For preliminary sizing, a target preload is often expressed as a chosen fraction of a strength-based force derived from the bolt stress area and an applicable material-strength value. The selected fraction is a design assumption, not a universal constant.',
+          'Bolt preload is the tensile force introduced into a fastener during tightening. In DraftFit, the preliminary preload workflow starts from the bolt proof-stress reference and the metric-thread tensile stress area.',
+          'The calculator first evaluates proof load as Fp = Sp × As. It then evaluates target preload as FM = Fp × utilisation, where the utilisation value is the preload fraction selected by the user.',
+        ],
+        bullets: [
+          'Sp: proof-stress reference used by the selected bolt class.',
+          'As: tensile stress area calculated from the selected metric thread geometry.',
+          'Fp: proof load from Sp × As.',
+          'FM: target preload from Fp multiplied by the selected preload fraction.',
         ],
       },
       {
         heading: 'Why tensile stress area matters',
         paragraphs: [
-          'Threaded sections do not use the full nominal shank area for tensile calculations. A metric thread has a smaller tensile stress area that reflects the thread geometry, so preload and stress checks should use the appropriate threaded-area model rather than the circular area from nominal diameter alone.',
-          'That is why two bolts with the same nominal diameter but different pitch can have different stress areas and therefore different calculated stress for the same preload.',
+          'Threaded sections do not use the full nominal shank area for tensile calculations. DraftFit calculates a metric-thread tensile stress area from the selected nominal diameter and pitch, then uses that area in the preload and bolt-stress checks.',
+          'Because pitch changes thread geometry, two bolts with the same nominal diameter can have different tensile stress areas and therefore different proof loads and target preloads.',
         ],
       },
       {
-        heading: 'A practical preload calculation workflow',
+        heading: 'Bolt preload calculation workflow',
         paragraphs: [
-          'Start with the actual metric thread and pitch, identify the bolt property class or other verified material-strength input, calculate the tensile stress area, then choose a preload target appropriate to the joint. Divide the selected preload by the stress area to review the corresponding bolt stress.',
+          'Select the actual metric thread and pitch, choose the bolt property class, review the proof-stress reference, then choose the target fraction used for the preliminary preload calculation. DraftFit reports proof load and target preload before estimating tightening torque.',
         ],
         bullets: [
-          'Thread size and pitch define the stress area.',
-          'Property class supplies strength inputs for the preliminary check.',
-          'Target preload sets the intended clamp force.',
-          'Bolt stress should be reviewed before converting preload into tightening torque.',
+          'Select thread size and pitch.',
+          'Select the verified bolt class or material input used by the calculator.',
+          'Review tensile stress area As and proof stress Sp.',
+          'Choose the preload fraction for the preliminary calculation.',
+          'Review proof load Fp and target preload FM.',
+          'Check bolt stress before using the tightening-torque estimate.',
         ],
       },
       {
-        heading: 'Preload is not the same as tightening torque',
+        heading: 'Preload formula vs tightening torque',
         paragraphs: [
-          'Preload is a force in the bolt and joint. Tightening torque is an installation input used to generate that force. Friction in the threads and under the head or nut means the same torque can produce different preload under different surface conditions.',
-          'After choosing a reasonable preload target, use realistic friction assumptions to estimate torque rather than selecting preload from a generic torque table in reverse.',
+          'The preload calculation above is strength-based. Tightening torque is a separate installation estimate that depends on thread geometry, thread friction, under-head or nut friction and the mean bearing friction diameter.',
+          'That distinction matters because changing lubrication or surface condition can change the torque needed to reach the same target preload even when the bolt size and target force do not change.',
         ],
       },
       {
-        heading: 'What this calculation does not prove',
+        heading: 'What this preliminary calculation does not prove',
         paragraphs: [
-          'A preload check alone does not validate the complete bolted joint. External load distribution, fatigue, separation, embedding, relaxation, temperature, thread stripping and the strength of the clamped parts can all control the design.',
-          'Use DraftFit as a preliminary engineering calculator and validate critical joints with the applicable design method, material data and tightening procedure.',
+          'DraftFit does not present this preload calculation as a complete bolted-joint analysis. The implemented calculator explicitly excludes a full VDI 2230 analysis and notes that joint stiffness, external loads, preload scatter, embedding losses, thermal effects, fatigue, eccentric loading, separation or slip and tightening-method accuracy can require additional verification.',
+          'Use the result as a preliminary engineering calculation and validate critical joints with the applicable design method, material data and tightening procedure.',
         ],
       },
     ],
