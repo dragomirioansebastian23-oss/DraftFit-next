@@ -3157,6 +3157,179 @@ export default function OringModule({
             </section>
 
 
+            <section
+              className={`
+                border
+                ${ui.card}
+                overflow-hidden
+              `}
+            >
+              <div className="p-5 sm:p-7">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <span className={`block text-[10px] font-black uppercase tracking-[0.18em] ${ui.subText}`}>
+                      {lang === 'ro' ? 'Vizualizare canal' : 'Live gland view'}
+                    </span>
+                    <h3 className={`mt-1 text-xl font-black sm:text-2xl ${ui.titleText}`}>
+                      {sealType === 'piston'
+                        ? t.piston
+                        : sealType === 'rod'
+                          ? t.rod
+                          : t.axial}
+                    </h3>
+                    <p className={`mt-2 max-w-2xl text-sm leading-6 ${ui.subText}`}>
+                      {lang === 'ro'
+                        ? 'Secțiunea tehnică folosește direct geometria calculată pentru configurația curentă.'
+                        : 'The technical cross-section uses the calculated geometry for the current configuration.'}
+                    </p>
+                  </div>
+
+                  <StatusBadge
+                    ok={result.overallOK}
+                    okText={lang === 'ro' ? 'OK PRELIMINAR' : 'PRELIMINARY OK'}
+                    failText={lang === 'ro' ? 'REVIZUIRE' : 'REVIEW'}
+                  />
+                </div>
+
+                <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.65fr)_minmax(280px,0.95fr)]">
+                  <div className={`border p-3 sm:p-5 ${ui.subCard}`}>
+                    {sealType === 'piston' && (
+                      <PistonSchematic
+                        unitSystem={unitSystem}
+                        isDark={isDark}
+                        d2={result.cs.d2}
+                        depth={result.depth}
+                        width={result.width}
+                        gap={radialGap}
+                        backupCount={backupCount}
+                      />
+                    )}
+
+                    {sealType === 'rod' && (
+                      <RodSchematic
+                        unitSystem={unitSystem}
+                        isDark={isDark}
+                        d2={result.cs.d2}
+                        depth={result.depth}
+                        width={result.width}
+                        gap={radialGap}
+                        backupCount={backupCount}
+                      />
+                    )}
+
+                    {sealType === 'axial' && (
+                      <AxialSchematic
+                        unitSystem={unitSystem}
+                        isDark={isDark}
+                        d2={result.cs.d2}
+                        depth={result.depth}
+                        width={result.width}
+                        direction={axialDirection}
+                        backupCount={backupCount}
+                      />
+                    )}
+                  </div>
+
+                  <div className={`border p-4 sm:p-5 ${ui.subCard}`}>
+                    <div className="text-[10px] font-black uppercase tracking-[0.16em] text-red-500">
+                      {lang === 'ro' ? 'Geometrie' : 'Geometry'}
+                    </div>
+
+                    <dl className="mt-4 space-y-3 text-sm">
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.grooveDepth}</dt>
+                        <dd className={`font-mono font-black ${ui.titleText}`}>
+                          {formatQuantity(result.depth, 'length', unitSystem)}
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.grooveWidth}</dt>
+                        <dd className={`font-mono font-black ${ui.titleText}`}>
+                          {formatQuantity(result.width, 'length', unitSystem)}
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.grooveDia}</dt>
+                        <dd className={`font-mono font-black ${ui.titleText}`}>
+                          Ø{formatQuantity(result.grooveRootDia, 'length', unitSystem)}
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.material}</dt>
+                        <dd className={`text-right font-mono font-black ${ui.titleText}`}>
+                          {result.material.name}
+                        </dd>
+                      </div>
+                    </dl>
+
+                    <div className={`my-5 border-t ${ui.divider}`} />
+
+                    <div className="text-[10px] font-black uppercase tracking-[0.16em] text-orange-500">
+                      {lang === 'ro' ? 'Integritate' : 'Integrity'}
+                    </div>
+
+                    <dl className="mt-4 space-y-3 text-sm">
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.squeeze}</dt>
+                        <dd className={`font-mono font-black ${result.squeezeStatus === 'ok' ? 'text-emerald-500' : 'text-amber-500'}`}>
+                          {fmt(result.squeeze, 1)} %
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.glandFill}</dt>
+                        <dd className={`font-mono font-black ${result.fillStatus === 'ok' ? 'text-emerald-500' : 'text-amber-500'}`}>
+                          {fmt(result.glandFill, 1)} %
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>
+                          {result.circumferentialStrain >= 0 ? t.stretch : t.compression}
+                        </dt>
+                        <dd className={`font-mono font-black ${result.strainStatus === 'ok' ? 'text-emerald-500' : 'text-amber-500'}`}>
+                          {result.circumferentialStrain >= 0 ? '+' : ''}
+                          {fmt(result.circumferentialStrain, 1)} %
+                        </dd>
+                      </div>
+                      <div className="flex items-center justify-between gap-4">
+                        <dt className={ui.subText}>{t.extrusion}</dt>
+                        <dd className={`font-mono font-black ${
+                          result.extrusionRisk.level === 'low'
+                            ? 'text-emerald-500'
+                            : result.extrusionRisk.level === 'medium'
+                              ? 'text-amber-500'
+                              : 'text-rose-500'
+                        }`}>
+                          {result.extrusionRisk.level.toUpperCase()}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+
+                <div
+                  className={`
+                    mt-4
+                    border
+                    border-l-4
+                    ${result.overallOK ? 'border-l-emerald-500' : 'border-l-amber-500'}
+                    p-4
+                    ${ui.subCard}
+                  `}
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.16em] text-orange-500">
+                    {lang === 'ro' ? 'Ce înseamnă rezultatul' : 'What this result means'}
+                  </div>
+                  <p className={`mt-2 text-sm font-semibold leading-6 ${ui.titleText}`}>
+                    {primaryResultMessage}
+                  </p>
+                  <p className={`mt-2 text-xs leading-5 ${ui.subText}`}>
+                    {t.note2}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 print:hidden">
 <ShareCalculationButton
           params={{
@@ -3209,6 +3382,7 @@ export default function OringModule({
 
             <div
               className={`
+                draftfit-advanced-only
                 p-5
                 sm:p-8
                 border
@@ -3368,6 +3542,7 @@ export default function OringModule({
 
             <div
               className={`
+                draftfit-advanced-only
                 p-5
                 sm:p-8
                 border
@@ -3479,6 +3654,7 @@ export default function OringModule({
 
             <div
               className={`
+                draftfit-advanced-only
                 p-5
                 sm:p-8
                 border
@@ -3606,6 +3782,7 @@ export default function OringModule({
 
             <div
               className={`
+                draftfit-advanced-only
                 p-5
                 sm:p-8
                 border
